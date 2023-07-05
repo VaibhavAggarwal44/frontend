@@ -1,24 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Form from "./Form/InsertForm";
+import SearchBar from "./Search/SearchPage";
+import Home from "./Home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AllArticles from "./AllArticles";
+import ArticleBody from "./ArticleBody";
+import Login from "./Authentication/Login";
+import Register from "./Authentication/Register";
 
-function App() {
+
+const App = () => {
+//   const [users, setUsers] = useState([])
+
+//   const fetchUserData = () => {
+//     fetch("http://localhost:8081/apis/matchAllArticles")
+//       .then(response => {
+//         return response.json()
+//       })
+//       .then(data => {
+// 		console.log(data);
+//         setUsers(data)
+//       })
+//   }
+
+//   useEffect(() => {
+//     fetchUserData()
+//   }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/register" element={<Register/>}/>
+          <Route path="/" element={<Home />} />
+          {/* <Route path="/employer" > */}
+          <Route path="/create" element={<Form />}/>
+          {/* </Route> */}
+          <Route path="/search" element={<SearchBar />}/>
+
+          <Route path="/display" element={<AllArticles/>}/>
+          <Route path="/view/article" element={<ArticleBody/>}/>
+          <Route path="*" element={<h1>404 page not found</h1>}/>
+        </Routes> 
+    </BrowserRouter>
   );
 }
 

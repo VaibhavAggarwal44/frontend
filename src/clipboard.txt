@@ -1,0 +1,51 @@
+{users.length>0 &&     
+        (<table id="customers">
+        <thead>
+            <tr>
+                {/* <th>ID</th> */}
+                <th>Heading</th>
+                <th>Article Body</th>
+                <th>Created By</th>
+                <th>Likes</th>
+                <th>Views</th>
+            </tr>
+            </thead>
+            
+        {users.length > 0 && (
+            <tbody>
+            {
+            users.map(user => (
+                // <Link to="/view/article">
+                
+                <tr key={user.id}>
+                    {/* {console.log(user)} */}
+                    {/* {id=user.id} */}
+                {/* <td>{user.id}</td> */}
+                <td>{user.heading}</td>
+                <td>{user.articleBody}</td>
+                <td>{user.createdBy}</td>
+                <td>{user.likes}</td>
+                <td>{user.views}</td>
+                </tr>
+                // </Link>
+            ))}
+            </tbody>
+            
+        )}
+        
+        </table>)}
+
+
+<CardGrid>
+        {users.map(user=>(
+          <Card>
+            <h2>{user.heading}</h2>
+            <h4>Posted By:{user.createdBy}</h4>
+            <h5>LIKES:{user.likes}{"    "}VIEWS:{user.views}</h5>
+            <p>{user.articleBody}</p>
+            {/* <h5>{user.createdBy}</h5> */}
+          </Card>
+          
+          ))}
+
+        </CardGrid>
