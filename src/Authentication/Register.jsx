@@ -2,6 +2,7 @@ import { useState,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer,toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
+import "./styles.css"
 
 
 const Register = () => {
@@ -105,7 +106,7 @@ const Register = () => {
 
                         </div>
                         <div className="card-footer">
-                            <button type="submit" className="btn btn-primary">Register</button> |
+                            <button type="submit" className="btn btn-primary button-style">Register</button> |
                             <Link to={'/login'} className="btn btn-danger">Login</Link>
                         </div>
                     </div>

@@ -44,3 +44,7 @@ li{
     transform: rotate(360deg);
   }
 }
+
+.button-style{
+  width: 21.2rem !important;
+}

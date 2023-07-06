@@ -26,10 +26,10 @@ const Home = () => {
         ARTICLE WEBSITE
       </Typography>
       <div>
-        <ul className="ul">
+        <ul className="ul" >
         <Link to="/create">
           <li>
-          <Button sx={{ margin:"2% 3%"}} variant="outlined">
+          <Button className="button-style" sx={{ margin:"2% 3%"}} variant="outlined">
             
               INSERT AN ARTICLE
             
@@ -38,7 +38,7 @@ const Home = () => {
           </Link>
           <Link to="/search">
           <li>
-          <Button sx={{ margin:"2% 3%"}} variant="outlined">
+          <Button className="button-style" sx={{ margin:"2% 3%"}} variant="outlined">
             
               SEARCH
             
@@ -47,7 +47,7 @@ const Home = () => {
           </Link>
           <Link to="/display">
           <li>
-          <Button sx={{ margin:"2% 3%"}} variant="outlined">
+          <Button className="button-style" sx={{ margin:"2% 3%"}} variant="outlined">
             
               VIEW ALL ARTICLES
             

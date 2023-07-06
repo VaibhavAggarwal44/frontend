@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {ToastContainer ,toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
+// import Footer from "../Footer/Footer";
+import "./styles.css"
 
 const Login = () => {
     const [username, usernameupdate] = useState('');
@@ -77,13 +79,14 @@ const Login = () => {
                             </div>
                         </div>
                         <div className="card-footer">
-                            <button type="submit" className="btn btn-primary">Login</button> |
+                            <button type="submit" className="btn btn-primary button-style">Login</button> |
                             <Link className="btn btn-success" to={'/register'}>New User</Link>
                         </div>
                     </div>
                 </form>
             </div>
             <ToastContainer/>
+            {/* <Footer/> */}
         </div>
     );
 }

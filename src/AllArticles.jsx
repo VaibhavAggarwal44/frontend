@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
-import "./Search/SearchPage.css"
+// import "./Search/SearchPage.css"
 import "./AllArticles.css"
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import ArticleListItem from "./ArticleListItem";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from "./NavBar/Navbar";
@@ -25,15 +25,27 @@ const AllArticles = () => {
   const npage=Math.ceil(articles.length/recordsPerPage);
   const numbers=[...Array(npage+1).keys()].slice(1);
 
+  const navigate=useNavigate()
+
+  useEffect(() => {
+    let username=sessionStorage.getItem('username')
+    // console.log(username)
+    if(username==='' || username===null){
+      navigate('/login')
+    }
+
+ }, []);
+
   function nextPage(){
-    if(currentPage!==lastIndex){
+    if(currentPage!==lastIndex && currentPage!==npage){
       setCurrentPage(currentPage+1)
     }
 
   }
 
   function prePage(){
-    if(currentPage!==firstIndex){
+    // if(currentPage===1){}
+    if(currentPage!==firstIndex && currentPage!==1){
       setCurrentPage(currentPage-1)
     }
   }
@@ -95,9 +107,10 @@ const AllArticles = () => {
   return (
     <div>
       <Navbar/>
-        <button classname="ml-3 my-3" onClick={(e)=>{var1=false; var2=false; handleChange2(e);}}>View All</button>
-        <button classname="ml-3 my-3" onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Sort by likes</button>
-        <button classname="ml-3 my-3" onClick={(e)=>{var1=false; var2=true; handleChange2(e);}}>Sort by views</button>
+      <div className="container checker2">
+        <button classname="style-button" onClick={(e)=>{var1=false; var2=false; handleChange2(e);}}>View All</button>
+        <button classname="style-button" onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Sort by likes</button>
+        <button classname="style-button" onClick={(e)=>{var1=false; var2=true; handleChange2(e);}}>Sort by views</button>
         {records.length>0 &&     
         (<table id="customers">
         <thead>
@@ -156,7 +169,7 @@ const AllArticles = () => {
               </li>
           </ul>
         </nav>)}
-            
+        </div> 
     </div>
   );
 }

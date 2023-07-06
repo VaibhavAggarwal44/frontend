@@ -22,12 +22,12 @@ function Navbar() {
 
   return (
     // <div class="container">
-    <nav className="navbar navbar-expand-lg navbar-light bg-dark px-3 mb-2">
+    <nav className="navbar navbar-expand-lg navbar-light bg-dark px-3 mb-2 justify-content-end">
         <a className="navbar-brand text-white " onClick={redirectHome}>Home</a>
         <a className="navbar-brand text-white " onClick={redirectLogin}>Logout</a>
-        <div className='justify-content-end'>
+        {/* <div className='justify-content-end'> */}
         <a className="navbar-brand text-white " onClick={redirectUserArticles}>{sessionStorage.getItem('username')}</a>
-        </div>
+        {/* </div> */}
         
     </nav>
     // </div>

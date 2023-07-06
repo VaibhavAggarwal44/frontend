@@ -1,13 +1,33 @@
 import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import Navbar from './NavBar/Navbar'
+import {useNavigate} from "react-router-dom"
 
 function ArticleBody(props) {
-    console.log(props.a_id)
+    let articleId=sessionStorage.getItem('articleId')
+
+    const [article,setArticle]=useState({})
+
+    const navigate=useNavigate()
+
+    useEffect(() => {
+      let username=sessionStorage.getItem('username')
+      // console.log(username)
+      if(username==='' || username===null){
+        navigate('/login')
+      }
+  
+   }, []);
+
+    
 
   return (
     <>
-            <h1>{props.heading}</h1>
-            <h4>POSTED BY: {props.createdby}<br/>Views: {props.views}</h4>
-            <p>{props.articlebody}</p>
+        <div>
+          <Navbar/>
+          {<h1>yo boy</h1>}
+        </div> 
 
     </>
   )

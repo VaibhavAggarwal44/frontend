@@ -32,6 +32,11 @@ const SearchBar = () => {
     handleChange()
   }
 
+  const articleView=(id)=>{
+    sessionStorage.setItem('articleId',id)
+    // navigate('/view/article')
+  }
+
   const handleChange = () => {
     // setMessage(event.target.value);
     // setMessage(message.trim())
@@ -88,9 +93,10 @@ const SearchBar = () => {
         <tbody>
           {
           users.map(user => (
+            
             <tr key={user.id}>
               {/* <td>{user.id}</td> */}
-              <td>{user.heading}</td>
+              <td><a href="http://localhost:3000/view/article">{user.heading}</a></td>
               <td>{user.articleBody}</td>
               <td>{user.createdBy}</td>
               <td>{user.likes}</td>

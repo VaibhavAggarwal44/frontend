@@ -3,13 +3,15 @@
 import "./Form.css";
 import { useState,useEffect } from "react";
 import axios from 'axios';
-import Card from "../Card/Card";
-import CardGrid from "../Card/CardGrid";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
+import JoditEditor from "jodit-react"
+import { useRef } from "react";
 // import 
 
 function Form() {
+  const editor=useRef(null)
+  const [content,setContent]=useState('')
   const url='http:/localhost:8081/apis/insert';
   const navigate=useNavigate()
   // const [article,setArticle]=useState({id:21});
@@ -17,6 +19,17 @@ function Form() {
   const [articleBody, setarticleBody] = useState("");
 //   const [createdBy, set] = useState("");
   const [message, setMessage] = useState("");
+
+  // const navigate=useNavigate()
+
+  useEffect(() => {
+    let username=sessionStorage.getItem('username')
+    // console.log(username)
+    if(username==='' || username===null){
+      navigate('/login')
+    }
+
+ }, []);
 
   let flag=false;
 
@@ -70,29 +83,40 @@ function Form() {
   return (
     <>
     <Navbar/>
-    <div id="inner">
-      <div className="App">
-        <form onSubmit={(e)=>handleSubmit(e)}>
+    <div >
+      <div className="checker">
+        <form className="container" onSubmit={(e)=>handleSubmit(e)}>
           <input
+          className="my-3"
             type="text"
             value={heading}
             placeholder="Heading"
             onChange={(e) => setHeading(e.target.value)}
           />
           <input
+          className="my-3"
             type="text"
             value={articleBody}
             placeholder="Content"
             onChange={(e) => setarticleBody(e.target.value)}
           />
+          <JoditEditor
+          ref={editor}
+          value={content}
+          // className="text-editor"
+          // config={config} // preferred to use only this option to update the content for performance reasons
+          onChange={newContent => setContent(newContent)} 
+        />
 
-          <button type="submit">Create</button>
+          <button type="submit" className="my-3 insert-button">Create</button>
 
           <div className="message">{message ? <p>{message}</p> : null}</div>
         </form>
+        
       </div>
       
     </div>
+    
     </>
   );
 }
