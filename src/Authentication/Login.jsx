@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import {ToastContainer ,toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 
 const Login = () => {
     const [username, usernameupdate] = useState('');
@@ -9,7 +10,7 @@ const Login = () => {
     const usenavigate=useNavigate();
 
     useEffect(()=>{
-sessionStorage.clear();
+        sessionStorage.clear();
     },[]);
 
     const ProceedLogin = (e) => {
@@ -17,30 +18,36 @@ sessionStorage.clear();
         if (validate()) {
             ///implentation
             // console.log('proceed');
-            fetch("http://localhost:8000/user/" + username).then((res) => {
-                return res.json();
-            }).then((resp) => {
-                //console.log(resp)
-                if (Object.keys(resp).length === 0) {
-                    toast.error('Please Enter valid username');
-                } else {
-                    if (resp.password === password) {
-                        toast.success('Success');
-                        sessionStorage.setItem('username',username);
-                        sessionStorage.setItem('userrole',resp.role);
-                        usenavigate('/')
-                    }else{
-                        toast.error('Please Enter valid credentials');
-                    }
+            fetch("http://localhost:8081/auth/login",{
+                method:'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain',
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({
+                    username:username,
+                    password:password
+                })
+            })
+            .then((resp) => {
+                return resp.json()
+            })
+            .then((resp)=>{
+                console.log(resp)
+                if(resp.username=='' || resp.password==''){
+                    toast.error("either user does not exists or password is wrong")
+                }else{
+                    sessionStorage.setItem('username',username)
+                    toast.success("Successfully logged in")
+                    usenavigate('/')
                 }
-            }).catch((err) => {
-                toast.error('Login Failed due to :' + err.message);
-            });
+            })
         }
     }
 
     const validate = () => {
         let result = true;
+        console.log("yes")
         if (username === '' || username === null) {
             result = false;
             toast.warning('Please Enter Username');
@@ -76,6 +83,7 @@ sessionStorage.clear();
                     </div>
                 </form>
             </div>
+            <ToastContainer/>
         </div>
     );
 }

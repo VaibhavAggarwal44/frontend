@@ -1,11 +1,27 @@
 import React from "react";
+import { useEffect } from "react";
 import { Typography, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import "./App.css"
+import Navbar from "./NavBar/Navbar";
 
 const Home = () => {
+  const navigate=useNavigate()
+
+  useEffect(() => {
+    let username=sessionStorage.getItem('username')
+    // console.log(username)
+    if(username==='' || username===null){
+      navigate('/login')
+    }
+
+ }, []);
+
   return (
+    <>
+    <Navbar/>
     <div >
+      
       <Typography sx={{ margin:"5%" }} variant="h3" align="center">
         ARTICLE WEBSITE
       </Typography>
@@ -41,6 +57,7 @@ const Home = () => {
         </ul>
       </div>
     </div>
+    </>
   );
 };
 

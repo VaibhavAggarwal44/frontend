@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react"
 import "./SearchPage.css"
+import Navbar from "../NavBar/Navbar";
+import {useNavigate} from "react-router-dom"
 
 const SearchBar = () => {
   const [users, setUsers] = useState([])
@@ -13,6 +15,17 @@ const SearchBar = () => {
     setMessage(e.target.value);
 
   }
+
+  const navigate=useNavigate()
+
+  useEffect(() => {
+    let username=sessionStorage.getItem('username')
+    // console.log(username)
+    if(username==='' || username===null){
+      navigate('/login')
+    }
+
+ }, []);
 
   const handleChange2= (e)=>{
     e.preventDefault();
@@ -39,6 +52,7 @@ const SearchBar = () => {
 
   return (
     <div>
+      <Navbar/>
       <div id="inner">
         <form >
         <input

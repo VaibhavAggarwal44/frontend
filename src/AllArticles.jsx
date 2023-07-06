@@ -4,6 +4,7 @@ import "./AllArticles.css"
 import { Link } from "react-router-dom";
 import ArticleListItem from "./ArticleListItem";
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Navbar from "./NavBar/Navbar";
 // import CardGrid from "./Card/CardGrid";
 // import Card from "./Card/Card";
 // import "./Card/style.css"
@@ -60,9 +61,9 @@ const AllArticles = () => {
         }
     }   
 
-    // useEffect(() => {
-        
-    // }, [count]);
+    useEffect(() => {
+        handleChange("articles")
+    }, []);
 
   const handleChange = (message) => {
     try{
@@ -93,9 +94,10 @@ const AllArticles = () => {
 
   return (
     <div>
-        <button className=""onClick={(e)=>{var1=false; var2=false; handleChange2(e);}}>View All</button>
-        <button onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Sort by likes</button>
-        <button onClick={(e)=>{var1=false; var2=true; handleChange2(e); }}>Sort by views</button>
+      <Navbar/>
+        <button classname="ml-3 my-3" onClick={(e)=>{var1=false; var2=false; handleChange2(e);}}>View All</button>
+        <button classname="ml-3 my-3" onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Sort by likes</button>
+        <button classname="ml-3 my-3" onClick={(e)=>{var1=false; var2=true; handleChange2(e);}}>Sort by views</button>
         {records.length>0 &&     
         (<table id="customers">
         <thead>
@@ -134,7 +136,7 @@ const AllArticles = () => {
         </table>)}
         
         {records.length>0 && (
-        <nav>
+        <nav className="mx-2 my-3">
           <ul className="pagination">
               <li className="page-item">
                   <a className="page-link"

@@ -6,6 +6,7 @@ import axios from 'axios';
 import Card from "../Card/Card";
 import CardGrid from "../Card/CardGrid";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../NavBar/Navbar";
 // import 
 
 function Form() {
@@ -14,7 +15,6 @@ function Form() {
   // const [article,setArticle]=useState({id:21});
   const [heading, setHeading] = useState("");
   const [articleBody, setarticleBody] = useState("");
-  const [createdBy, setcreatedBy] = useState("");
 //   const [createdBy, set] = useState("");
   const [message, setMessage] = useState("");
 
@@ -25,7 +25,7 @@ function Form() {
   const handleSubmit=(e)=>{
     e.preventDefault();
 
-    if(heading.length>0 && articleBody.length>0 && createdBy.length>0){
+    if(heading.length>0 && articleBody.length>0){
       fetch('http://localhost:8081/apis/insert',{
         method:'POST',
         headers: {
@@ -35,7 +35,7 @@ function Form() {
         body:JSON.stringify({
           articleBody:articleBody,
           heading:heading,
-          createdBy:createdBy
+          createdBy:sessionStorage.getItem('username')
         })
       })
       .then((response)=>{console.log(response)
@@ -52,7 +52,7 @@ function Form() {
       })
       .catch((err)=>{console.log(err)});
 
-      console.log(heading+" "+articleBody+" "+createdBy)
+      console.log(heading+" "+articleBody)
     }
     else{
       flag=false;
@@ -68,6 +68,8 @@ function Form() {
   }
 
   return (
+    <>
+    <Navbar/>
     <div id="inner">
       <div className="App">
         <form onSubmit={(e)=>handleSubmit(e)}>
@@ -83,39 +85,15 @@ function Form() {
             placeholder="Content"
             onChange={(e) => setarticleBody(e.target.value)}
           />
-          <input
-            type="text"
-            value={createdBy}
-            placeholder="Username"
-            onChange={(e) => setcreatedBy(e.target.value)}
-          />
 
           <button type="submit">Create</button>
 
           <div className="message">{message ? <p>{message}</p> : null}</div>
-          <CardGrid>{flag && (
-          <Card>
-            <h2>{heading}</h2>
-            <h4>Posted By:{createdBy}</h4>
-            <p>{articleBody}</p>
-            {/* <h5>{user.createdBy}</h5> */}
-          </Card>
-          
-          )}
-          </CardGrid>
         </form>
       </div>
-      <CardGrid>{flag && (
-          <Card>
-            <h2>{heading}</h2>
-            <h4>Posted By:{createdBy}</h4>
-            <p>{articleBody}</p>
-            {/* <h5>{user.createdBy}</h5> */}
-          </Card>
-          
-          )}
-        </CardGrid>
+      
     </div>
+    </>
   );
 }
 
