@@ -10,3 +10,7 @@
 .paginator nav:hover{
     cursor: pointer;
 }
+
+.table-row{
+    cursor: pointer;
+}

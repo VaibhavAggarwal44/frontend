@@ -48,3 +48,11 @@ li{
 .button-style{
   width: 21.2rem !important;
 }
+
+.headers-article{
+  display: flex;
+}
+
+.headers-article h6{
+  margin-right: 50px;
+}

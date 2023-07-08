@@ -130,15 +130,12 @@ const AllArticles = () => {
             records.map(article => (
                 // <Link to="/view/article">
                 
-                <tr key={article.id}>
-                    {/* {console.log(article)} */}
-                    {/* {id=article.id} */}
-                {/* <td>{article.id}</td> */}
-                <td>{article.heading}</td>
-                <td>{article.articleBody}</td>
-                <td>{article.createdBy}</td>
-                <td>{article.likes}</td>
-                <td>{article.views}</td>
+                <tr key={article.id} className="table-row" onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}}>
+                  <td>{article.heading}</td>
+                  <td>{article.articleBody}</td>
+                  <td>{article.createdBy}</td>
+                  <td>{article.likes}</td>
+                  <td>{article.views}</td>
                 </tr>
                 // </Link>
             ))}

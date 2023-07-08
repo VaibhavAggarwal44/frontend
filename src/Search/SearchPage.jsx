@@ -97,12 +97,12 @@ const SearchBar = () => {
             
             
             <tr key={user.id}>
-              {/* <td><a href={url} onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.id}</a></td> */}
-              <td><a href={url} onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.heading}</a></td>
-              <td><a href={url} onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.articleBody}</a></td>
-              <td><a href={url} onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.createdBy}</a></td>
-              <td><a href={url} onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.likes}</a></td>
-              <td><a href={url} onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.views}</a></td>
+              {/* <td><a onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.id}</a></td> */}
+              <td><a onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.heading}</a></td>
+              <td><a onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.articleBody}</a></td>
+              <td><a onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.createdBy}</a></td>
+              <td><a onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.likes}</a></td>
+              <td><a onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.views}</a></td>
             </tr>
           ))}
         </tbody>

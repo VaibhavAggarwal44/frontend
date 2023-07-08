@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import Navbar from './NavBar/Navbar'
 import {useNavigate} from "react-router-dom"
+import './App.css'
 
 function ArticleBody() {
     
@@ -34,11 +35,7 @@ function ArticleBody() {
    const func2= ()=>{
     let articleId=localStorage.getItem('articleid')
     console.log("fetcher")
-    fetch(`http://localhost:8081/apis/${articleId}`,{
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }
-   })
+    fetch(`http://localhost:8081/apis/${articleId}`)
       .then(response => {
         // console.log(response);
         return response.json();
@@ -56,9 +53,13 @@ function ArticleBody() {
     <>
     <Navbar/>
         <div className="container">
-          
+          <div className='headers-article'>
+            <h6>Created By: {article.createdBy}</h6>
+            <h6>UPVOTES: {article.likes}</h6>
+            <h6>VIEWS: {article.views}</h6>
+          </div>
           <h3>{article.heading}</h3>
-          <h5>Created By: {article.createdBy}</h5>
+          
           <div dangerouslySetInnerHTML={{__html: article.displayBody}}></div>
         </div> 
 
