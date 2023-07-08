@@ -85,7 +85,7 @@ const AllArticles = () => {
         return response.json();
       })
       .then(data => {
-        console.log(data)
+        // console.log(data)
         if(message=="articles")
         setArticles(data.content)
         else
@@ -108,9 +108,9 @@ const AllArticles = () => {
     <div>
       <Navbar/>
       <div className="container checker2">
-        <button classname="style-button" onClick={(e)=>{var1=false; var2=false; handleChange2(e);}}>View All</button>
-        <button classname="style-button" onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Sort by likes</button>
-        <button classname="style-button" onClick={(e)=>{var1=false; var2=true; handleChange2(e);}}>Sort by views</button>
+        <button className="style-button" onClick={(e)=>{var1=false; var2=false; handleChange2(e);}}>View All</button>
+        <button className="style-button" onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Sort by likes</button>
+        <button className="style-button" onClick={(e)=>{var1=false; var2=true; handleChange2(e);}}>Sort by views</button>
         {records.length>0 &&     
         (<table id="customers">
         <thead>
@@ -119,7 +119,7 @@ const AllArticles = () => {
                 <th>Heading</th>
                 <th>Article Body</th>
                 <th>Created By</th>
-                <th>Likes</th>
+                <th><a onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Likes</a></th>
                 <th>Views</th>
             </tr>
             </thead>
@@ -148,28 +148,37 @@ const AllArticles = () => {
         
         </table>)}
         
-        {records.length>0 && (
-        <nav className="mx-2 my-3">
-          <ul className="pagination">
-              <li className="page-item">
-                  <a className="page-link"
-                  onClick={prePage}>Prev</a>
-              </li>
-              {
-                numbers.map((n,i)=>(
-                  <li className={`page-link ${currentPage===n?'bg-warning':''}`} key={i}>
-                    <a className="page-item"
-                    onClick={()=>setCurrentPage(n)}>{n}</a>
-                  </li>
-                ))
-              }
-              <li className="page-item">
-                  <a className="page-link"
-                  onClick={nextPage}>Next</a>
-              </li>
-          </ul>
-        </nav>)}
+        
         </div> 
+        {records.length>0 && (
+        <div className="paginator">
+          <nav className="my-3">
+            <ul className="pagination justify-content-center">
+            <a className="page-link"
+                    onClick={prePage}>
+                <li className="page-item">
+                    Prev
+                </li>
+                </a>
+                {
+                  numbers.map((n,i)=>(
+                    <a className="page-item"
+                      onClick={()=>setCurrentPage(n)}>
+                    <li className={`page-link ${currentPage===n?'bg-warning':''}`} key={i}>
+                      {n}
+                    </li>
+                    </a>
+                  ))
+                }
+                <a className="page-link"
+                    onClick={nextPage}>
+                <li className="page-item">
+                    Next
+                </li>
+                </a>
+            </ul>
+          </nav>
+        </div>)}
     </div>
   );
 }

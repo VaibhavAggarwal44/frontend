@@ -75,11 +75,11 @@ const Register = () => {
     }
     return (
         <>
-            <div className="offset-lg-3 col-lg-6">
-                <form className="container" onSubmit={handlesubmit}>
+            <div className="offset-lg-3 col-lg-6" style={{ marginTop: '100px' }}>
+                <form onSubmit={handlesubmit}>
                     <div className="card">
                         <div className="card-header">
-                            <h1>User Registeration</h1>
+                            <h2>User Registeration</h2>
                         </div>
                         <div className="card-body">
 

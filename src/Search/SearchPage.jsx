@@ -4,6 +4,7 @@ import Navbar from "../NavBar/Navbar";
 import {useNavigate} from "react-router-dom"
 
 const SearchBar = () => {
+  const url="http://localhost:3000/view/article"
   const [users, setUsers] = useState([])
   
   const [message, setMessage] = useState('');
@@ -94,13 +95,14 @@ const SearchBar = () => {
           {
           users.map(user => (
             
+            
             <tr key={user.id}>
-              {/* <td>{user.id}</td> */}
-              <td><a href="http://localhost:3000/view/article">{user.heading}</a></td>
-              <td>{user.articleBody}</td>
-              <td>{user.createdBy}</td>
-              <td>{user.likes}</td>
-              <td>{user.views}</td>
+              {/* <td><a href={url} onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.id}</a></td> */}
+              <td><a href={url} onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.heading}</a></td>
+              <td><a href={url} onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.articleBody}</a></td>
+              <td><a href={url} onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.createdBy}</a></td>
+              <td><a href={url} onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.likes}</a></td>
+              <td><a href={url} onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.views}</a></td>
             </tr>
           ))}
         </tbody>
