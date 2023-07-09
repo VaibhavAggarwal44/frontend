@@ -59,58 +59,43 @@ const SearchBar = () => {
   return (
     <div>
       <Navbar/>
-      <div id="inner">
+      <div className="container w-50">
         <form >
+        <div class="input-group input-group-lg">
         <input
           type="text"
           id="message"
           name="message"
           onChange={handleChange1}
           value={message}
+          className="form-control h-50 border border-primary" aria-label="Default" aria-describedby="inputGroup-sizing-default"
         />
-
+        </div>
         <h2>Query: {message}</h2>
 
-        <button onClick={(e)=>{handleChange2(e)}}>Search</button>
+        <button onClick={(e)=>{handleChange2(e)}} className="button-checker2 h-75">Search</button>
         </form>
         
       </div>
       
-      <div> 
-    {users.length>0 &&     
-    (<table id="customers">
-      <thead>
-          <tr>
-            {/* <th>ID</th> */}
-            <th>Heading</th>
-            <th>Article Body</th>
-            <th>Created By</th>
-            <th>Likes</th>
-            <th>Views</th>
-          </tr>
-        </thead>
-        
-       {users.length > 0 && (
-        <tbody>
-          {
-          users.map(user => (
-            
-            
-            <tr key={user.id}>
-              {/* <td><a onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.id}</a></td> */}
-              <td><a onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.heading}</a></td>
-              <td><a onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.articleBody}</a></td>
-              <td><a onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.createdBy}</a></td>
-              <td><a onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.likes}</a></td>
-              <td><a onClick={()=>{localStorage.setItem('articleid',user.id); navigate('/view/article');}}>{user.views}</a></td>
-            </tr>
-          ))}
-        </tbody>
-        
-      )}
-      
-    </table>)}
-    </div>
+      <div className="container w-75">
+      {(users.length>0 && (
+          users.map((article,i)=>(
+            <div class="card my-4">
+              <div class="card-header">
+                <h4>{article.heading}</h4>
+              </div>
+              <div class="card-body">
+                <h6>LIKES: {article.likes}&nbsp;&nbsp;   VIEWS:{article.views}</h6>
+                <p class="card-text">{article.articleBody?article.articleBody.substring(0,70)+"...":""}</p>
+                <a onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}} class="btn btn-primary table-row">View Post</a>
+              </div>
+            </div>
+
+          ))
+        ))}
+        </div>
+    
     </div>
   );
 }

@@ -18,12 +18,12 @@ function Navbar() {
     }
 
     const redirectUserArticles=()=>{
-
+      navigate('/view/userArticles')
     }
 
   return (
     // <div class="container">
-    <nav className="navbar navbar-expand-lg navbar-light bg-dark px-3 mb-2 justify-content-end navbar-hover">
+    <nav className="navbar navbar-expand-lg navbar-light bg-dark px-3 mb-2 justify-content-end navbar-hover sticky-top">
         <a className="navbar-brand text-white " onClick={redirectHome}>Home</a>
         <a className="navbar-brand text-white " onClick={redirectLogin}>Logout</a>
         {/* <div className='justify-content-end'> */}

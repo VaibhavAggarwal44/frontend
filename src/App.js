@@ -7,25 +7,10 @@ import AllArticles from "./AllArticles";
 import ArticleBody from "./ArticleBody";
 import Login from "./Authentication/Login";
 import Register from "./Authentication/Register";
+import UserArticles from "./UserArticles/UserArticles";
 
 
 const App = () => {
-//   const [users, setUsers] = useState([])
-
-//   const fetchUserData = () => {
-//     fetch("http://localhost:8081/apis/matchAllArticles")
-//       .then(response => {
-//         return response.json()
-//       })
-//       .then(data => {
-// 		console.log(data);
-//         setUsers(data)
-//       })
-//   }
-
-//   useEffect(() => {
-//     fetchUserData()
-//   }, [])
 
   return (
     <BrowserRouter>
@@ -40,6 +25,7 @@ const App = () => {
 
           <Route path="/display" element={<AllArticles/>}/>
           <Route path="/view/article" element={<ArticleBody/>}/>
+          <Route path="/view/userArticles" element={<UserArticles/>}/>
           <Route path="*" element={<h1>404 page not found</h1>}/>
         </Routes> 
     </BrowserRouter>

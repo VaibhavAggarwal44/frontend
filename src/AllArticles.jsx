@@ -18,7 +18,7 @@ const AllArticles = () => {
   
 
   const [currentPage, setCurrentPage]=useState(1);
-  const recordsPerPage=10;
+  const recordsPerPage=5;
   const lastIndex=currentPage*recordsPerPage;
   const firstIndex=lastIndex-recordsPerPage;
   const records=articles.slice(firstIndex,lastIndex);
@@ -102,51 +102,69 @@ const AllArticles = () => {
       return true;
 
   };
-  //  let id="";
 
   return (
     <div>
       <Navbar/>
       <div className="container checker2">
-        <button className="style-button" onClick={(e)=>{var1=false; var2=false; handleChange2(e);}}>View All</button>
-        <button className="style-button" onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Sort by likes</button>
-        <button className="style-button" onClick={(e)=>{var1=false; var2=true; handleChange2(e);}}>Sort by views</button>
+        <button className="style-button btn btn-primary" onClick={(e)=>{var1=false; var2=false; handleChange2(e);}}>View All</button>
+        <button className="style-button btn btn-primary" onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Sort by likes</button>
+        <button className="style-button btn btn-primary" onClick={(e)=>{var1=false; var2=true; handleChange2(e);}}>Sort by views</button>
         {records.length>0 &&     
-        (<table id="customers">
-        <thead>
-            <tr>
-                {/* <th>ID</th> */}
-                <th>Heading</th>
-                <th>Article Body</th>
-                <th>Created By</th>
-                <th><a onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Likes</a></th>
-                <th>Views</th>
-            </tr>
-            </thead>
+        // (<table id="customers">
+        // <thead>
+        //     <tr>
+        //         {/* <th>ID</th> */}
+        //         <th>Heading</th>
+        //         <th>Article Body</th>
+        //         <th>Created By</th>
+        //         <th><a onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Likes</a></th>
+        //         <th>Views</th>
+        //     </tr>
+        //     </thead>
             
-        {records.length > 0 && (
-            <tbody>
-            {
-            records.map(article => (
-                // <Link to="/view/article">
+        // {records.length > 0 && (
+        //     <tbody>
+        //     {
+        //     records.map(article => (
+        //         // <Link to="/view/article">
                 
-                <tr key={article.id} className="table-row" onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}}>
-                  <td>{article.heading}</td>
-                  <td>{article.articleBody}</td>
-                  <td>{article.createdBy}</td>
-                  <td>{article.likes}</td>
-                  <td>{article.views}</td>
-                </tr>
-                // </Link>
-            ))}
-            </tbody>
+        //         <tr key={article.id} className="table-row" onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}}>
+        //           <td>{article.heading}</td>
+        //           <td>{article.articleBody?article.articleBody.substring(0,70)+".....":""}</td>
+        //           <td>{article.createdBy}</td>
+        //           <td>{article.likes}</td>
+        //           <td>{article.views}</td>
+        //         </tr>
+        //         // </Link>
+        //     ))}
+        //     </tbody>
             
-        )}
+        // )}
         
-        </table>)}
+        // </table>)
+
+        (records.length>0 && (
+          records.map(article=>(
+            <div class="card my-4">
+              <div class="card-header">
+                <h4>{article.heading}</h4>
+              </div>
+              <div class="card-body">
+                <h6>LIKES: {article.likes}&nbsp;&nbsp; VIEWS:{article.views}</h6>
+                <p class="card-text">{article.articleBody?article.articleBody.substring(0,70)+"...":""}</p>
+                <a onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}} class="btn btn-primary table-row">View Post</a>
+              </div>
+            </div>
+
+          ))
+        ))
+      
+      }
         
         
         </div> 
+        
         {records.length>0 && (
         <div className="paginator">
           <nav className="my-3">

@@ -4,6 +4,7 @@ import {ToastContainer ,toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 // import Footer from "../Footer/Footer";
 import "./styles.css"
+import Navbar from "../NavBar/Navbar";
 
 const Login = () => {
     const [username, usernameupdate] = useState('');
@@ -60,7 +61,8 @@ const Login = () => {
         }
         return result;
     }
-    return (
+    return (<>
+        {/* <Navbar flag={false}/> */}
         <div className="row">
             <div className="offset-lg-3 col-lg-6" style={{ marginTop: '100px' }}>
                 <form onSubmit={ProceedLogin} className="container">
@@ -88,6 +90,7 @@ const Login = () => {
             <ToastContainer/>
             {/* <Footer/> */}
         </div>
+        </>
     );
 }
 

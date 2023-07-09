@@ -137,7 +137,7 @@ function Form() {
                   onChange={togglePublic}
                 />
           </div>
-          <button type="submit" className="my-3 insert-button">Create</button>
+          <button type="submit" className="my-3 insert-button btn btn-primary">Create</button>
 
           <div className="message">{message ? <p>{message}</p> : null}</div>
         </form>

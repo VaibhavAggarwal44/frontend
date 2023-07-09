@@ -22,16 +22,6 @@ function ArticleBody() {
   
    }, []);
 
-  //  useEffect(()=>{
-  //   func()
-  //  },[])
-
-  //  const func=()=>{
-  //     func2()
-  //  }
-
-  //  useEffect(()=>{},[html])
-
    const func2= ()=>{
     let articleId=localStorage.getItem('articleid')
     console.log("fetcher")
