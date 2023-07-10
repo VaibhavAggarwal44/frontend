@@ -56,3 +56,9 @@ li{
 .headers-article h6{
   margin-right: 50px;
 }
+
+.button-border-set{
+  border:none;
+  margin-left: 10px;
+  padding: 2px;
+}

@@ -4,9 +4,9 @@ import { useState } from 'react'
 import Navbar from './NavBar/Navbar'
 import {useNavigate} from "react-router-dom"
 import {FaThumbsUp,FaThumbsDown} from 'react-icons/fa'
+import {FiEdit} from 'react-icons/fi'
 import { IconContext } from "react-icons/lib";
 import './App.css'
-import Likedislike from './LikeDislike/Likedislike'
 
 function ArticleBody() {
     const [likeColor,setLikeColor]=useState("blue")
@@ -48,12 +48,12 @@ function ArticleBody() {
         setDisLikes(data.dislikes)
 
         if(data.dislikedBy.includes(username)){
-          setDislikeColor("grey")
-          setLikeColor("blue")
+          setDislikeColor("red")
+          setLikeColor("grey")
         }
         if(data.likedBy.includes(username)){
-          setLikeColor("grey")
-          setDislikeColor("red")
+          setLikeColor("blue")
+          setDislikeColor("grey")
         }
         
       })
@@ -66,8 +66,8 @@ function ArticleBody() {
     e.preventDefault()
     let articleId=localStorage.getItem('articleid')
     // console.log(likeColor)
-    setLikeColor("grey")
-    setDislikeColor("red")
+    setLikeColor("blue")
+    setDislikeColor("grey")
       
       fetch(`http://localhost:8081/apis/${articleId}/${username}/like`)
       .then(response => {
@@ -87,8 +87,8 @@ function ArticleBody() {
     e.preventDefault()
     let articleId=localStorage.getItem('articleid')
     // console.log(likeColor)
-    setDislikeColor("grey")
-          setLikeColor("blue")
+    setDislikeColor("red")
+          setLikeColor("grey")
       fetch(`http://localhost:8081/apis/${articleId}/${username}/dislike`)
       .then(response => {
         console.log("response.json()");
@@ -101,6 +101,11 @@ function ArticleBody() {
 
       return ;
     
+   }
+
+   const editHandler=(e)=>{
+    e.preventDefault();
+    navigate('/edit')
    }
 
 
@@ -118,16 +123,21 @@ function ArticleBody() {
             <h6>Dislikes: {dislikes}</h6>
 
             <div>
-              <button onClick={(e)=>likeHandler(e)}>
+              <button onClick={(e)=>likeHandler(e)} className='button-border-set'>
                   <IconContext.Provider value={{ color: `${likeColor}`,size:30 }}>
                       <FaThumbsUp/>
                   </IconContext.Provider>
               </button>
-              <button onClick={(e)=>dislikeHandler(e)}>
+              <button onClick={(e)=>dislikeHandler(e)} className='button-border-set'>
                   <IconContext.Provider value={{ color: `${dislikeColor}`,size:30 }}>
                       <FaThumbsDown/>
                   </IconContext.Provider>
               </button>
+              {article.createdBy==username && <button className='button-border-set' onClick={(e)=>{editHandler(e)}}>
+                  <IconContext.Provider value={{ color: "",size:30 }}>
+                      <FiEdit/>
+                  </IconContext.Provider>
+              </button>}
           </div>
           </div>
           <h1>{article.heading}</h1>

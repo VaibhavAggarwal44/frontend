@@ -38,12 +38,12 @@ const SearchBar = () => {
     // navigate('/view/article')
   }
 
-  const handleChange = () => {
+  const handleChange = async () => {
     // setMessage(event.target.value);
     // setMessage(message.trim())
     var str=message.trim()
     var query=str.replace(' ', "--")
-    fetch(`http://localhost:8081/apis/search/${query}`)
+    const dat=await fetch(`http://localhost:8081/apis/search/${query}`)
       .then(response => {
         // console.log(response.json());
         return response.json();

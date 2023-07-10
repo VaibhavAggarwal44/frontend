@@ -8,6 +8,7 @@ import ArticleBody from "./ArticleBody";
 import Login from "./Authentication/Login";
 import Register from "./Authentication/Register";
 import UserArticles from "./UserArticles/UserArticles";
+import EditArticle from "./Edit/EditArticle";
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/create" element={<Form />}/>
           {/* </Route> */}
           <Route path="/search" element={<SearchBar />}/>
+          <Route path="/edit" element={<EditArticle/>}/>
 
           <Route path="/display" element={<AllArticles/>}/>
           <Route path="/view/article" element={<ArticleBody/>}/>
