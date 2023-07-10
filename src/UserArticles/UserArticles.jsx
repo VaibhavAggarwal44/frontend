@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import {useNavigate} from "react-router-dom"
 import Navbar from '../NavBar/Navbar';
+import { Typography } from '@mui/material';
 
 function UserArticles() {
 
@@ -35,7 +36,10 @@ function UserArticles() {
     <>
     <Navbar/>
     <div className="container">
-        <h1>THESE ARE YOUR ARTICLES:</h1>
+    <Typography sx={{ margin:"5%" }} variant="h3" align="center">
+        Your Articles:
+      </Typography>
+        
         <div className="container w-75">
         {(articles.length>0 && (
             articles.map((article,i)=>(

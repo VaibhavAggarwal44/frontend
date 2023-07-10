@@ -48,12 +48,20 @@ const Login = () => {
         }
     }
 
+    function hasWhiteSpace(s) {
+        return s.indexOf(' ') >= 0;
+      }
+
     const validate = () => {
         let result = true;
         console.log("yes")
         if (username === '' || username === null) {
             result = false;
             toast.warning('Please Enter Username');
+        }
+        if(hasWhiteSpace(username)){
+            result=false;
+            toast.warning('enter valid username')
         }
         if (password === '' || password === null) {
             result = false;

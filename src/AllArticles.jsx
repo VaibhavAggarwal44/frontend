@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-// import "./Search/SearchPage.css"
 import "./AllArticles.css"
 import { Link,useNavigate } from "react-router-dom";
 import ArticleListItem from "./ArticleListItem";
@@ -15,10 +14,18 @@ const AllArticles = () => {
   let var1=false;
   let var2=false;
 
-  
+  useEffect(() => {
+    let username=sessionStorage.getItem('username')
+    if(username==='' || username===null){
+      navigate('/login')
+    }else{
+      handleChange("articles/sortView")
+    }
+
+ }, []);
 
   const [currentPage, setCurrentPage]=useState(1);
-  const recordsPerPage=5;
+  const recordsPerPage=4;
   const lastIndex=currentPage*recordsPerPage;
   const firstIndex=lastIndex-recordsPerPage;
   const records=articles.slice(firstIndex,lastIndex);
@@ -27,14 +34,6 @@ const AllArticles = () => {
 
   const navigate=useNavigate()
 
-  useEffect(() => {
-    let username=sessionStorage.getItem('username')
-    // console.log(username)
-    if(username==='' || username===null){
-      navigate('/login')
-    }
-
- }, []);
 
   function nextPage(){
     if(currentPage!==lastIndex && currentPage!==npage){
@@ -73,9 +72,9 @@ const AllArticles = () => {
         }
     }   
 
-    useEffect(() => {
-        handleChange("articles")
-    }, []);
+    // useEffect(() => {
+    //     handleChange("articles")
+    // }, []);
 
   const handleChange = (message) => {
     try{
@@ -106,10 +105,10 @@ const AllArticles = () => {
   return (
     <div>
       <Navbar/>
+      
       <div className="container checker2">
-        <button className="style-button btn btn-primary" onClick={(e)=>{var1=false; var2=false; handleChange2(e);}}>View All</button>
-        <button className="style-button btn btn-primary" onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Sort by likes</button>
-        <button className="style-button btn btn-primary" onClick={(e)=>{var1=false; var2=true; handleChange2(e);}}>Sort by views</button>
+        <button className="style-button btn btn-primary my-2 justify-content-center" onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Sort by likes</button>
+        <button className="style-button btn btn-primary my-2 justify-content-center" onClick={(e)=>{var1=false; var2=true; handleChange2(e);}}>Sort by views</button>
         {records.length>0 &&     
         // (<table id="customers">
         // <thead>

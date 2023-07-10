@@ -17,12 +17,20 @@ const Register = () => {
 
     const usenavigate = useNavigate();
 
+    function hasWhiteSpace(s) {
+        return s.indexOf(' ') >= 0;
+      }
+
     const IsValidate = () => {
         let isproceed = true;
         let errormessage = 'Please enter the value in ';
         if (username === null || username === '') {
             isproceed = false;
             errormessage += ' Username,';
+        }
+        if(hasWhiteSpace(username)){
+            isproceed=false;
+            toast.warning('enter valid username')
         }
         if (password === null || password === '') {
             isproceed = false;
