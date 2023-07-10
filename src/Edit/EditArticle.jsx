@@ -5,6 +5,7 @@ import Navbar from "../NavBar/Navbar";
 import JoditEditor from "jodit-react"
 import { useRef } from "react";
 import ReactSwitch from "react-switch";
+import Navbar1 from "../NavBar/Navbar";
 // import 
 
 function EditArticle() {
@@ -22,13 +23,18 @@ function EditArticle() {
 
   useEffect(() => {
     let username=sessionStorage.getItem('username')
+    let articleId=localStorage.getItem('articleid')
+
+    if(articleId==null || articleId==''){
+        navigate('/home')
+    }
     // console.log(username)
-    if(username==='' || username===null){
+    if(username==='' || username===null ){
       navigate('/login')
     }
     else{
         
-            let articleId=localStorage.getItem('articleid')
+            // let articleId=localStorage.getItem('articleid')
             console.log("fetcher")
             fetch(`http://localhost:8081/apis/${articleId}`)
               .then(response => {
@@ -122,7 +128,7 @@ function EditArticle() {
 
   return (
     <>
-    <Navbar/>
+    <Navbar1/>
     <div >
       <div className="checker">
         <form className="container" onSubmit={(e)=>handleSubmit(e)}>

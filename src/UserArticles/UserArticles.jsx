@@ -5,6 +5,7 @@ import { useState } from 'react';
 import {useNavigate} from "react-router-dom"
 import Navbar from '../NavBar/Navbar';
 import { Typography } from '@mui/material';
+import Navbar1 from '../NavBar/Navbar';
 
 function UserArticles() {
 
@@ -34,7 +35,7 @@ function UserArticles() {
 
   return (
     <>
-    <Navbar/>
+    <Navbar1/>
     <div className="container">
     <Typography sx={{ margin:"5%" }} variant="h3" align="center">
         Your Articles:

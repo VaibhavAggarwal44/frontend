@@ -1,9 +1,11 @@
 import React from "react";
 import { useEffect } from "react";
-import { Typography, Button } from "@mui/material";
+import { Typography } from "@mui/material";
+import  Button  from "react-bootstrap/Button";
 import { Link,useNavigate } from "react-router-dom";
 import "./App.css"
 import Navbar from "./NavBar/Navbar";
+import Navbar1 from "./NavBar/Navbar";
 
 const Home = () => {
   const navigate=useNavigate()
@@ -19,49 +21,13 @@ const Home = () => {
 
   return (
     <>
-    <Navbar/>
+    <Navbar1/>
     <div >
       
       <Typography sx={{ margin:"5%" }} variant="h3" align="center">
-        ARTICLE WEBSITE
+        BLOGGER APP
       </Typography>
-      <div>
-        <ul className="ul" >
-        
-          <li>
-          <Link to="/create">
-          <Button className="button-style" sx={{ margin:"2% 3%"}} variant="outlined">
-            
-              INSERT AN ARTICLE
-            
-            </Button>
-            </Link>
-          </li>
-          
-          
-          <li>
-          <Link to="/search">
-          <Button className="button-style" sx={{ margin:"2% 3%"}} variant="outlined">
-            
-              SEARCH
-            
-            </Button>
-            </Link>
-          </li>
-          
-         
-          <li>
-          <Link to="/display">
-          <Button className="button-style" sx={{ margin:"2% 3%"}} variant="outlined">
-            
-              VIEW ALL ARTICLES
-            
-            </Button>
-            </Link>
-          </li>
-          
-        </ul>
-      </div>
+      
     </div>
     </>
   );

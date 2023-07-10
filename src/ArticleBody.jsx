@@ -7,6 +7,7 @@ import {FaThumbsUp,FaThumbsDown} from 'react-icons/fa'
 import {FiEdit} from 'react-icons/fi'
 import { IconContext } from "react-icons/lib";
 import './App.css'
+import Navbar1 from './NavBar/Navbar'
 
 function ArticleBody() {
     const [likeColor,setLikeColor]=useState("blue")
@@ -111,7 +112,7 @@ function ArticleBody() {
 
   return (
     <>
-    <Navbar/>
+    <Navbar1/>
         <div className="container">
           <div className='headers-article py-3'>
             <h6>Created By: {article.createdBy}</h6>

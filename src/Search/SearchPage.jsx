@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import "./SearchPage.css"
 import Navbar from "../NavBar/Navbar";
 import {useNavigate} from "react-router-dom"
+import Navbar1 from "../NavBar/Navbar";
 
 const SearchBar = () => {
   const url="http://localhost:3000/view/article"
@@ -58,7 +59,7 @@ const SearchBar = () => {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar1/>
       <div className="container w-50">
         <form >
         <div class="input-group input-group-lg">
@@ -68,7 +69,7 @@ const SearchBar = () => {
           name="message"
           onChange={handleChange1}
           value={message}
-          className="form-control h-50 border border-primary" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+          className="form-control h-50 border border-primary my-3" aria-label="Default" aria-describedby="inputGroup-sizing-default"
         />
         </div>
         <h2>Query: {message}</h2>

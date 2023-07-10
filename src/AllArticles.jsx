@@ -4,6 +4,9 @@ import { Link,useNavigate } from "react-router-dom";
 import ArticleListItem from "./ArticleListItem";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from "./NavBar/Navbar";
+import Navbar1 from "./NavBar/Navbar";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 // import CardGrid from "./Card/CardGrid";
 // import Card from "./Card/Card";
 // import "./Card/style.css"
@@ -104,11 +107,12 @@ const AllArticles = () => {
 
   return (
     <div>
-      <Navbar/>
-      
+      <Navbar1/>
+
+      <div className="justify-content-center">
       <div className="container checker2">
-        <button className="style-button btn btn-primary my-2 justify-content-center" onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Sort by likes</button>
-        <button className="style-button btn btn-primary my-2 justify-content-center" onClick={(e)=>{var1=false; var2=true; handleChange2(e);}}>Sort by views</button>
+        <a className="style-button btn btn-primary  my-2 justify-content-center" onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Sort by likes</a>
+        <a className="style-button btn btn-primary mx-3 my-2 justify-content-center" onClick={(e)=>{var1=false; var2=true; handleChange2(e);}}>Sort by views</a>
         {records.length>0 &&     
         // (<table id="customers">
         // <thead>
@@ -145,16 +149,28 @@ const AllArticles = () => {
 
         (records.length>0 && (
           records.map(article=>(
-            <div class="card my-4">
-              <div class="card-header">
-                <h4>{article.heading}</h4>
-              </div>
-              <div class="card-body">
-                <h6>LIKES: {article.likes}&nbsp;&nbsp; VIEWS:{article.views}&nbsp;&nbsp; POSTED BY:{article.createdBy}</h6>
-                <p class="card-text">{article.articleBody?article.articleBody.substring(0,70)+"...":""}</p>
-                <a onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}} class="btn btn-primary table-row">View Post</a>
-              </div>
-            </div>
+            // <div class="card my-4">
+            //   <div class="card-header">
+            //     <h4>{article.heading}</h4>
+            //   </div>
+            //   <div class="card-body">
+            //     <h6>LIKES: {article.likes}&nbsp;&nbsp; VIEWS:{article.views}&nbsp;&nbsp; POSTED BY:{article.createdBy}</h6>
+            //     <p class="card-text">{article.articleBody?article.articleBody.substring(0,70)+"...":""}</p>
+            //     <a onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}} class="btn btn-primary table-row">View Post</a>
+            //   </div>
+            // </div>
+            <Card className="my-3">
+            <Card.Header><h3>{article.heading}</h3></Card.Header>
+            <Card.Body>
+              <Card.Title>LIKES: {article.likes}&nbsp;&nbsp; VIEWS:{article.views}&nbsp;&nbsp; POSTED BY:{article.createdBy}</Card.Title>
+              <Card.Text>
+              {article.articleBody?article.articleBody.substring(0,70)+"...":""}
+              </Card.Text>
+              {/* <Button variant="primary" onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}}>View Post</Button> */}
+              <a onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}} class="btn btn-primary table-row">View Post</a>
+
+            </Card.Body>
+          </Card>
 
           ))
         ))
@@ -193,6 +209,7 @@ const AllArticles = () => {
             </ul>
           </nav>
         </div>)}
+        </div>
     </div>
   );
 }

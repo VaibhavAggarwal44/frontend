@@ -8,6 +8,7 @@ import Navbar from "../NavBar/Navbar";
 import JoditEditor from "jodit-react"
 import { useRef } from "react";
 import ReactSwitch from "react-switch";
+import Navbar1 from "../NavBar/Navbar";
 // import 
 
 function Form() {
@@ -104,7 +105,7 @@ function Form() {
 
   return (
     <>
-    <Navbar/>
+    <Navbar1/>
     <div >
       <div className="checker">
         <form className="container" onSubmit={(e)=>handleSubmit(e)}>

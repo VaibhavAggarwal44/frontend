@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css'
 // import Footer from "../Footer/Footer";
 import "./styles.css"
 import Navbar from "../NavBar/Navbar";
+import Navbar2 from "../NavBar/Navbar2";
 
 const Login = () => {
     const [username, usernameupdate] = useState('');
@@ -70,7 +71,7 @@ const Login = () => {
         return result;
     }
     return (<>
-        {/* <Navbar flag={false}/> */}
+    {/* <Navbar2/> */}
         <div className="row">
             <div className="offset-lg-3 col-lg-6" style={{ marginTop: '100px' }}>
                 <form onSubmit={ProceedLogin} className="container">
