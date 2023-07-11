@@ -43,9 +43,9 @@ function Navbar1() {
     // <div class="container">
     <div className='navbar-width'>
     
-    <Navbar  bg="dark" data-bs-theme="dark">
+    <Navbar  bg="dark" data-bs-theme="dark" className='h5'>
     <Container>
-      <Navbar.Brand href="#" onClick={redirectHome}>BLOGGER&nbsp;<FaMicroblog/></Navbar.Brand>
+      <Navbar.Brand href="#" onClick={redirectHome} className='my-2 mx-3'>BLOGGER&nbsp;<FaMicroblog/></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">

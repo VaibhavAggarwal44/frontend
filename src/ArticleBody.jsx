@@ -8,6 +8,8 @@ import {FiEdit} from 'react-icons/fi'
 import { IconContext } from "react-icons/lib";
 import './App.css'
 import Navbar1 from './NavBar/Navbar'
+import CommentExampleComment from './Comment/Comment'
+import Nested from './Comment/Comment'
 
 function ArticleBody() {
     const [likeColor,setLikeColor]=useState("blue")
@@ -145,6 +147,10 @@ function ArticleBody() {
           
           <div dangerouslySetInnerHTML={{__html: article.displayBody}}></div>
         </div> 
+        {/* <div className='container'>
+        <Nested/>
+        </div> */}
+        
 
     </>
   )

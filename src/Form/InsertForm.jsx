@@ -9,6 +9,8 @@ import JoditEditor from "jodit-react"
 import { useRef } from "react";
 import ReactSwitch from "react-switch";
 import Navbar1 from "../NavBar/Navbar";
+import {ToastContainer ,toast } from "react-toastify";
+
 // import 
 
 function Form() {
@@ -76,11 +78,11 @@ function Form() {
       .then((response)=>{console.log(response)
         if(response.status==200){
           flag=true;
-          setMessage("article inserted successfully")
+          toast.success("article inserted successfully")
           setTimeout(()=>{navigate('/')},1000)
           
         }else{
-          setMessage("some error occured")
+          toast.error("some error occured")
 
           setTimeout(()=>{navigate('/')},1000)
         }
@@ -91,8 +93,8 @@ function Form() {
     }
     else{
       flag=false;
-      setMessage("please fill all the details")
-      setTimeout(()=>setMessage(""),2000)
+      toast.error("please fill all the details")
+      // setTimeout(()=>setMessage(""),2000)
     }
     // navigate('/')
     // console.log(JSON.stringify(article))
@@ -144,7 +146,7 @@ function Form() {
         </form>
         
       </div>
-      
+      <ToastContainer/>
     </div>
     
     </>
