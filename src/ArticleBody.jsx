@@ -8,8 +8,7 @@ import {FiEdit} from 'react-icons/fi'
 import { IconContext } from "react-icons/lib";
 import './App.css'
 import Navbar1 from './NavBar/Navbar'
-import CommentExampleComment from './Comment/Comment'
-import Nested from './Comment/Comment'
+import Comment from './Comment/Comment'
 
 function ArticleBody() {
     const [likeColor,setLikeColor]=useState("blue")
@@ -38,8 +37,8 @@ function ArticleBody() {
    useEffect(()=>{},[likeColor,dislikeColor])
 
    const func2= ()=>{
-    let articleId=localStorage.getItem('articleid')
-    console.log("fetcher")
+    let articleId=localStorage.getItem('articleId')
+    console.log(articleId)
     fetch(`http://localhost:8081/apis/${articleId}`)
       .then(response => {
         // console.log(response);
@@ -67,7 +66,7 @@ function ArticleBody() {
 
    const likeHandler=(e)=>{
     e.preventDefault()
-    let articleId=localStorage.getItem('articleid')
+    let articleId=localStorage.getItem('articleId')
     // console.log(likeColor)
     setLikeColor("blue")
     setDislikeColor("grey")
@@ -88,7 +87,7 @@ function ArticleBody() {
 
    const dislikeHandler=(e)=>{
     e.preventDefault()
-    let articleId=localStorage.getItem('articleid')
+    let articleId=localStorage.getItem('articleId')
     // console.log(likeColor)
     setDislikeColor("red")
           setLikeColor("grey")
@@ -147,9 +146,9 @@ function ArticleBody() {
           
           <div dangerouslySetInnerHTML={{__html: article.displayBody}}></div>
         </div> 
-        {/* <div className='container'>
-        <Nested/>
-        </div> */}
+        <div className='container'>
+        <Comment/>
+        </div>
         
 
     </>

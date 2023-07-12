@@ -23,7 +23,7 @@ function EditArticle() {
 
   useEffect(() => {
     let username=sessionStorage.getItem('username')
-    let articleId=localStorage.getItem('articleid')
+    let articleId=localStorage.getItem('articleId')
 
     if(articleId==null || articleId==''){
         navigate('/home')

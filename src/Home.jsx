@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Typography } from "@mui/material";
 import  Button  from "react-bootstrap/Button";
 import { Link,useNavigate } from "react-router-dom";
+import Image from 'react-bootstrap/Image';
 import "./App.css"
 import Navbar from "./NavBar/Navbar";
 import Navbar1 from "./NavBar/Navbar";
@@ -24,13 +25,16 @@ const Home = () => {
   return (
     <>
     <Navbar1/>
-    <div >
+    <div className="container bg-setter">
       
-      <Typography sx={{ margin:"5%" }} variant="h3" align="center">
+      <Typography sx={{ margin:"5%" }} variant="h3" align="center" className="font-setter">
+      <Image src={require('./download.png')} fluid/><br/>
         BLOGGER APP
       </Typography>
       <Typewriterj/>
+      {/* <div > */}
       
+      {/* </div> */}
     </div>
       {/* <CommentExampleComment/> */}
     </>

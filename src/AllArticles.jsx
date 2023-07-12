@@ -167,7 +167,7 @@ const AllArticles = () => {
               {article.articleBody?article.articleBody.substring(0,70)+"...":""}
               </Card.Text>
               {/* <Button variant="primary" onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}}>View Post</Button> */}
-              <a onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}} class="btn btn-primary table-row">View Post</a>
+              <a onClick={()=>{localStorage.setItem('articleId',article.id); navigate('/view/article');}} class="btn btn-primary table-row">View Post</a>
 
             </Card.Body>
           </Card>

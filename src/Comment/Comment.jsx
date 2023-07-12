@@ -1,235 +1,197 @@
-import React from "react";
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBCol,
-  MDBContainer,
-  MDBIcon,
-  MDBRow,
-  MDBTypography,
-} from "mdb-react-ui-kit";
+import React from 'react'
+import { useEffect } from 'react';
+import { useState } from 'react'
 
-export default function Nested() {
+import {ToastContainer ,toast } from "react-toastify";
+
+import { Button, Card, CardBody, CardText, Col, Container, Input, Row } from "reactstrap"
+import Reply from './Reply';
+
+function Comment() {
+    const [content,setContent]=useState('');
+    const [comment,setComment]=useState([]);
+    const [reply,setReply]=useState('');
+    let username=sessionStorage.getItem('username');
+    let articleId=localStorage.getItem('articleId');
+
+    useEffect(()=>{
+        let articleId=localStorage.getItem('articleId')
+        fetch(`http://localhost:8081/comment/${articleId}`)
+        .then(response => {
+            // console.log(response.json());
+            return response.json();
+        })
+        .then(data => {
+            console.log(data)
+            setComment(data)
+        })
+    },[])
+
+    const func=()=>{
+        let articleId=localStorage.getItem('articleId')
+        fetch(`http://localhost:8081/comment/${articleId}`)
+        .then(response => {
+            // console.log(response.json());
+            return response.json();
+        })
+        .then(data => {
+            debugger
+            console.log(data)
+            setComment(data)
+        })
+    }
+
+    const handleComment=(e)=>{
+        e.preventDefault();
+
+        var str=content.trim();
+
+        if(str===''){
+            return;
+        }else{
+            fetch('http://localhost:8081/comment/insert',{
+        method:'POST',
+        headers: {
+          'Accept': 'application/json, text/plain',
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({
+          content:str,
+          articleId:articleId,
+          username:username
+        })
+      })
+      .then((response)=>{console.log(response)
+        if(response.status==200){
+        //   flag=true;
+          toast.success("comment inserted successfully")
+        //   setTimeout(()=>{navigate('/')},1000)
+        func()
+          
+        }else{
+          toast.error("some error occured")
+
+        //   setTimeout(()=>{navigate('/')},1000)
+        }
+      })
+      .catch((err)=>{console.log(err)});
+
+      setContent('')
+    }
+
+    }
+
+    const handleReply=(e,commentId)=>{
+        e.preventDefault();
+        console.log("bete")
+
+        var str=reply.trim();
+
+        if(str===''){
+            console.log("aonther")
+            return;
+        }else{
+            console.log("dust")
+            fetch(`http://localhost:8081/comment/${commentId}/insert`,{
+        method:'POST',
+        headers: {
+          'Accept': 'application/json, text/plain',
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({
+          content:reply,
+          articleId:articleId,
+          username:username
+        })
+      })
+      .then((response)=>{console.log(response)
+        if(response.status==200){
+             window.location.reload(false)
+        //   setTimeout(()=>{navigate('/')},1000)
+            func()
+        }else{
+          toast.error("some error occured")
+
+        //   setTimeout(()=>{navigate('/')},1000)
+        }
+      })
+      .catch((err)=>{console.log(err)});
+
+      setReply('')
+    }
+
+    }
+
+
+
   return (
-    <section className="gradient-custom vh-100">
-      <MDBContainer className="py-5" style={{ maxWidth: "1000px" }}>
-        <MDBRow className="justify-content-center">
-          <MDBCol md="12" lg="10" xl="8">
-            <MDBCard>
-              <MDBCardBody className="p-4">
-                <MDBTypography tag="h4" className="text-center mb-4 pb-2">
-                  Nested comments section
-                </MDBTypography>
+    <Row className="my-4">
 
-                <MDBRow>
-                  <MDBCol>
-                    <div className="d-flex flex-start">
-                      <MDBCardImage
-                        className="rounded-circle shadow-1-strong me-3"
-                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp"
-                        alt="avatar"
-                        width="65"
-                        height="65"
-                      />
+                    <Col md={
 
-                      <div className="flex-grow-1 flex-shrink-1">
-                        <div>
-                          <div className="d-flex justify-content-between align-items-center">
-                            <p className="mb-1">
-                              Maria Smantha{" "}
-                              <span className="small">- 2 hours ago</span>
-                            </p>
-                            <a href="#!">
-                              <MDBIcon fas icon="reply fa-xs" />
-                              <span className="small"> reply</span>
-                            </a>
-                          </div>
-                          <p className="small mb-0">
-                            It is a long established fact that a reader will be
-                            distracted by the readable content of a page.
-                          </p>
-                        </div>
+                        {
+                            size: 9,
+                            offset: 1
+                        }
+                    }>
+                        <h3>Comments</h3>
 
-                        <div className="d-flex flex-start mt-4">
-                          <a className="me-3" href="#">
-                            <MDBCardImage
-                              className="rounded-circle shadow-1-strong me-3"
-                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp"
-                              alt="avatar"
-                              width="65"
-                              height="65"
-                            />
-                          </a>
+                        {
+                            comment && comment.map((c, index) => {
+                                if(c.parentComment){
+                                    console.log(c.replies)
+                                    return (
+                                    <Card className="mt-4 border-1" key={index}>
+                                        <CardBody>
+                                            <div className='d-flex'>
+                                            <CardText className='mx-2'><strong>{c.username}</strong></CardText>
+                                            <CardText>
+                                                {c.content}
+                                            </CardText>
+                                            </div>
+                                            <Input
+                                                placeholder="Reply??"
+                                                value={reply}
+                                                onChange={(event) => setReply(event.target.value)}
+                                            />
 
-                          <div className="flex-grow-1 flex-shrink-1">
-                            <div>
-                              <div className="d-flex justify-content-between align-items-center">
-                                <p className="mb-1">
-                                  Simona Disa{" "}
-                                  <span className="small">- 3 hours ago</span>
-                                </p>
-                              </div>
-                              <p className="small mb-0">
-                                letters, as opposed to using 'Content here,
-                                content here', making it look like readable
-                                English.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
+                                            <Button  className="mt-2" color="primary" onClick={(e)=>handleReply(e,c.commentId)}>Reply</Button>
+                                            <Reply commentId={c.commentId}/>
+                                        </CardBody>
+                                    </Card>);
+                                }}
+                                
+                                // (c?.replies && c.replies.map((reply)=>{<Card className="mt-4 border-1" key={index}>
+                                // <CardBody className='d-flex my-3'>
+                                //         <CardText className='mx-2'><strong>{reply.username}</strong></CardText>
+                                //         <CardText>
+                                //             {reply.content}
+                                //         </CardText>
+                                //         </CardBody>
+                                // </Card>}))
+                            )
+                                
+                        }
+                        <Card className="mt-4 border-0" >
+                            <CardBody>
 
-                        <div className="d-flex flex-start mt-4">
-                          <a className="me-3" href="#">
-                            <MDBCardImage
-                              className="rounded-circle shadow-1-strong me-3"
-                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp"
-                              alt="avatar"
-                              width="65"
-                              height="65"
-                            />
-                          </a>
+                                <Input
+                                    type="textarea"
+                                    placeholder="Enter comment here"
+                                    value={content}
+                                    onChange={(event) => setContent(event.target.value)}
+                                />
 
-                          <div className="flex-grow-1 flex-shrink-1">
-                            <div>
-                              <div className="d-flex justify-content-between align-items-center">
-                                <p className="mb-1">
-                                  John Smith{" "}
-                                  <span className="small">- 4 hours ago</span>
-                                </p>
-                              </div>
-                              <p className="small mb-0">
-                                the majority have suffered alteration in some
-                                form, by injected humour, or randomised words.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                                <Button  className="mt-2" color="primary" onClick={(e)=>handleComment(e)}>Submit</Button>
+                            </CardBody>
+                        </Card>
 
-                    <div className="d-flex flex-start mt-4">
-                      <MDBCardImage
-                        className="rounded-circle shadow-1-strong me-3"
-                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(12).webp"
-                        alt="avatar"
-                        width="65"
-                        height="65"
-                      />
+                    </Col>
 
-                      <div className="flex-grow-1 flex-shrink-1">
-                        <div>
-                          <div className="d-flex justify-content-between align-items-center">
-                            <p className="mb-1">
-                              Natalie Smith{" "}
-                              <span className="small">- 2 hours ago</span>
-                            </p>
-                            <a href="#!">
-                              <MDBIcon fas icon="reply fa-xs" />
-                              <span className="small"> reply</span>
-                            </a>
-                          </div>
-                          <p className="small mb-0">
-                            The standard chunk of Lorem Ipsum used since the
-                            1500s is reproduced below for those interested.
-                            Sections 1.10.32 and 1.10.33.
-                          </p>
-                        </div>
+            <ToastContainer/>
+    </Row>
 
-                        <div className="d-flex flex-start mt-4">
-                          <a className="me-3" href="#">
-                            <MDBCardImage
-                              className="rounded-circle shadow-1-strong me-3"
-                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp"
-                              alt="avatar"
-                              width="65"
-                              height="65"
-                            />
-                          </a>
-
-                          <div className="flex-grow-1 flex-shrink-1">
-                            <div>
-                              <div className="d-flex justify-content-between align-items-center">
-                                <p className="mb-1">
-                                  Lisa Cudrow{" "}
-                                  <span className="small">- 4 hours ago</span>
-                                </p>
-                              </div>
-                              <p className="small mb-0">
-                                Cras sit amet nibh libero, in gravida nulla.
-                                Nulla vel metus scelerisque ante sollicitudin
-                                commodo. Cras purus odio, vestibulum in
-                                vulputate at, tempus viverra turpis.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="d-flex flex-start mt-4">
-                          <a className="me-3" href="#">
-                            <MDBCardImage
-                              className="rounded-circle shadow-1-strong me-3"
-                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(29).webp"
-                              alt="avatar"
-                              width="65"
-                              height="65"
-                            />
-                          </a>
-
-                          <div className="flex-grow-1 flex-shrink-1">
-                            <div>
-                              <div className="d-flex justify-content-between align-items-center">
-                                <p className="mb-1">
-                                  Maggie McLoan{" "}
-                                  <span className="small">- 5 hours ago</span>
-                                </p>
-                              </div>
-                              <p className="small mb-0">
-                                a Latin professor at Hampden-Sydney College in
-                                Virginia, looked up one of the more obscure
-                                Latin words, consectetur
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="d-flex flex-start mt-4">
-                          <a className="me-3" href="#">
-                            <MDBCardImage
-                              className="rounded-circle shadow-1-strong me-3"
-                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp"
-                              alt="avatar"
-                              width="65"
-                              height="65"
-                            />
-                          </a>
-
-                          <div className="flex-grow-1 flex-shrink-1">
-                            <div>
-                              <div className="d-flex justify-content-between align-items-center">
-                                <p className="mb-1">
-                                  John Smith{" "}
-                                  <span className="small">- 6 hours ago</span>
-                                </p>
-                              </div>
-                              <p className="small mb-0">
-                                Autem, totam debitis suscipit saepe sapiente
-                                magnam officiis quaerat necessitatibus odio
-                                assumenda, perferendis quae iusto labore
-                                laboriosam minima numquam impedit quam dolorem!
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </MDBCol>
-                </MDBRow>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-    </section>
-  );
+  )
 }
+
+export default Comment

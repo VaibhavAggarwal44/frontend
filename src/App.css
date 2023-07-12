@@ -74,3 +74,11 @@ li{
   /* min-height: 100vh; */
   /* background: green; */
 }
+
+.font-setter{
+  font-family: 'proxima_nova_rgregular';
+}
+
+/* .bg-setter{
+  background-image: url('background-image.jpeg');
+} */

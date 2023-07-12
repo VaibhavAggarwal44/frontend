@@ -43,6 +43,17 @@ const SearchBar = () => {
     // setMessage(event.target.value);
     // setMessage(message.trim())
     var str=message.trim()
+    if(str===''){
+      return;
+    }
+    let username = 'vibhu';
+    let password = 'vibhu';
+    // let base64 = require('base-64');
+    let strm=btoa(username+":"+password)
+    console.log(strm)
+    let headers = new Headers();
+    headers.append('Authorization', 'Basic' + 'dmliaHU6dmliaHU=');
+
     var query=str.replace(' ', "--")
     const dat=await fetch(`http://localhost:8081/apis/search/${query}`)
       .then(response => {
@@ -89,7 +100,7 @@ const SearchBar = () => {
               <div class="card-body">
                 <h6>LIKES: {article.likes}&nbsp;&nbsp;   VIEWS:{article.views}</h6>
                 <p class="card-text">{article.articleBody?article.articleBody.substring(0,70)+"...":""}</p>
-                <a onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}} class="btn btn-primary table-row">View Post</a>
+                <a onClick={()=>{localStorage.setItem('articleId',article.id); navigate('/view/article');}} class="btn btn-primary table-row">View Post</a>
               </div>
             </div>
 
