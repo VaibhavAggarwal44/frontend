@@ -9,6 +9,7 @@ import Login from "./Authentication/Login";
 import Register from "./Authentication/Register";
 import UserArticles from "./UserArticles/UserArticles";
 import EditArticle from "./Edit/EditArticle";
+import AnotherUserArticles from "./UserArticles/AnotherUserArticles";
 
 
 const App = () => {
@@ -28,7 +29,9 @@ const App = () => {
           <Route path="/display" element={<AllArticles/>}/>
           <Route path="/view/article" element={<ArticleBody/>}/>
           <Route path="/view/userArticles" element={<UserArticles/>}/>
+          <Route path="/view/user2Articles" element={<AnotherUserArticles/>}/>
           <Route path="*" element={<h1>404 page not found</h1>}/>
+
         </Routes> 
     </BrowserRouter>
   );

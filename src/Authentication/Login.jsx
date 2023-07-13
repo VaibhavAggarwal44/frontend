@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {ToastContainer ,toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
+import Image from 'react-bootstrap/Image';
 // import Footer from "../Footer/Footer";
 import "./styles.css"
 import Navbar from "../NavBar/Navbar";
@@ -14,7 +15,7 @@ const Login = () => {
     const usenavigate=useNavigate();
 
     useEffect(()=>{
-        sessionStorage.clear();
+        localStorage.clear();
     },[]);
 
     const ProceedLogin = (e) => {
@@ -41,7 +42,7 @@ const Login = () => {
                 if(resp.username=='' || resp.password==''){
                     toast.error("either user does not exists or password is wrong")
                 }else{
-                    sessionStorage.setItem('username',username)
+                    localStorage.setItem('username',username)
                     toast.success("Successfully logged in")
                     usenavigate('/')
                 }
@@ -73,7 +74,10 @@ const Login = () => {
     return (<>
     {/* <Navbar2/> */}
         <div className="row">
+
             <div className="offset-lg-3 col-lg-6" style={{ marginTop: '100px' }}>
+
+            <Image src={require('../download.png')} fluid/>
                 <form onSubmit={ProceedLogin} className="container">
                     <div className="card">
                         <div className="card-header">

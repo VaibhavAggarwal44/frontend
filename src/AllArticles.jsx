@@ -18,7 +18,7 @@ const AllArticles = () => {
   let var2=false;
 
   useEffect(() => {
-    let username=sessionStorage.getItem('username')
+    let username=localStorage.getItem('username')
     if(username==='' || username===null){
       navigate('/login')
     }else{
@@ -81,7 +81,13 @@ const AllArticles = () => {
 
   const handleChange = (message) => {
     try{
-        fetch(`http://localhost:8081/apis/${message}`)
+        fetch(`http://localhost:8081/apis/${message}`,{
+        method:'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Basic ${btoa('admin:admin')}`,
+        },
+      })
       .then(response => {
         // console.log(response.json());
         return response.json();
@@ -148,7 +154,7 @@ const AllArticles = () => {
         // </table>)
 
         (records.length>0 && (
-          records.map(article=>(
+          records.map((article,i)=>(
             // <div class="card my-4">
             //   <div class="card-header">
             //     <h4>{article.heading}</h4>
@@ -159,15 +165,15 @@ const AllArticles = () => {
             //     <a onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}} class="btn btn-primary table-row">View Post</a>
             //   </div>
             // </div>
-            <Card className="my-3">
+            <Card className="my-3" key={i}>
             <Card.Header><h3>{article.heading}</h3></Card.Header>
             <Card.Body>
               <Card.Title>LIKES: {article.likes}&nbsp;&nbsp; VIEWS:{article.views}&nbsp;&nbsp; POSTED BY:{article.createdBy}</Card.Title>
               <Card.Text>
-              {article.articleBody?article.articleBody.substring(0,70)+"...":""}
+              {article.articleBody?article.articleBody.substring(0,250)+"...":""}
               </Card.Text>
               {/* <Button variant="primary" onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}}>View Post</Button> */}
-              <a onClick={()=>{localStorage.setItem('articleId',article.id); navigate('/view/article');}} class="btn btn-primary table-row">View Post</a>
+              <a onClick={()=>{localStorage.setItem('articleId',article.id); navigate('/view/article');}} className="btn btn-primary table-row">View Post</a>
 
             </Card.Body>
           </Card>
@@ -193,7 +199,7 @@ const AllArticles = () => {
                 {
                   numbers.map((n,i)=>(
                     <a className="page-item"
-                      onClick={()=>setCurrentPage(n)}>
+                      onClick={()=>setCurrentPage(n)} key={i}>
                     <li className={`page-link ${currentPage===n?'bg-warning':''}`} key={i}>
                       {n}
                     </li>

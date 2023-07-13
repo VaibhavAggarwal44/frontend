@@ -7,18 +7,26 @@ import Navbar from '../NavBar/Navbar';
 import { Typography } from '@mui/material';
 import Navbar1 from '../NavBar/Navbar';
 
-function UserArticles() {
+function AnotherUserArticles() {
 
     const [articles,setArticles]=useState([]);
     const navigate=useNavigate()
+    let user2=localStorage.getItem('user2')
 
     useEffect(() => {
         let username=localStorage.getItem('username')
+
+        let user2=localStorage.getItem('user2')
         // console.log(username)
         if(username==='' || username===null){
           navigate('/login')
-        }else{
-            fetch(`http://localhost:8081/apis/checker/${username}`)
+        }
+        else if(user2==username){
+            navigate('/view/userArticles')
+        }
+        else{
+            let user2=localStorage.getItem('user2')
+            fetch(`http://localhost:8081/apis/${user2}/getPublic`)
             .then(response => {
                 // console.log(response.json());
                 return response.json();
@@ -38,7 +46,7 @@ function UserArticles() {
     <Navbar1/>
     <div className="container">
     <Typography sx={{ margin:"5%" }} variant="h3" align="center">
-        Your Articles:
+        Articles By {user2}:
       </Typography>
         
         <div className="container w-75">
@@ -64,4 +72,4 @@ function UserArticles() {
   )
 }
 
-export default UserArticles
+export default AnotherUserArticles

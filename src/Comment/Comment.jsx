@@ -11,7 +11,9 @@ function Comment() {
     const [content,setContent]=useState('');
     const [comment,setComment]=useState([]);
     const [reply,setReply]=useState('');
-    let username=sessionStorage.getItem('username');
+    const [replyBox,setReplyBox]=useState(Array.apply('',Array(100)))
+    const [comlen,setcomlen]=useState(0)
+    let username=localStorage.getItem('username');
     let articleId=localStorage.getItem('articleId');
 
     useEffect(()=>{
@@ -23,7 +25,9 @@ function Comment() {
         })
         .then(data => {
             console.log(data)
+            data.sort()
             setComment(data)
+            setcomlen(data.length)
         })
     },[])
 
@@ -35,9 +39,10 @@ function Comment() {
             return response.json();
         })
         .then(data => {
-            debugger
             console.log(data)
+            data.sort()
             setComment(data)
+            setcomlen(data.length)
         })
     }
 
@@ -81,6 +86,10 @@ function Comment() {
 
     }
 
+    const func2=()=>{
+        fetch(`http://localhost:8081/apis/${articleId}/tester`)
+    }
+
     const handleReply=(e,commentId)=>{
         e.preventDefault();
         console.log("bete")
@@ -106,9 +115,10 @@ function Comment() {
       })
       .then((response)=>{console.log(response)
         if(response.status==200){
+            func2()
              window.location.reload(false)
         //   setTimeout(()=>{navigate('/')},1000)
-            func()
+            
         }else{
           toast.error("some error occured")
 
@@ -134,7 +144,7 @@ function Comment() {
                             offset: 1
                         }
                     }>
-                        <h3>Comments</h3>
+                        <h4>Comments  {comlen}</h4>
 
                         {
                             comment && comment.map((c, index) => {
@@ -151,8 +161,8 @@ function Comment() {
                                             </div>
                                             <Input
                                                 placeholder="Reply??"
-                                                value={reply}
-                                                onChange={(event) => setReply(event.target.value)}
+                                                value={replyBox[index]}
+                                                onChange={(event) => {setReply(event.target.value); replyBox[index]=event.target.value;}}
                                             />
 
                                             <Button  className="mt-2" color="primary" onClick={(e)=>handleReply(e,c.commentId)}>Reply</Button>
@@ -160,15 +170,6 @@ function Comment() {
                                         </CardBody>
                                     </Card>);
                                 }}
-                                
-                                // (c?.replies && c.replies.map((reply)=>{<Card className="mt-4 border-1" key={index}>
-                                // <CardBody className='d-flex my-3'>
-                                //         <CardText className='mx-2'><strong>{reply.username}</strong></CardText>
-                                //         <CardText>
-                                //             {reply.content}
-                                //         </CardText>
-                                //         </CardBody>
-                                // </Card>}))
                             )
                                 
                         }

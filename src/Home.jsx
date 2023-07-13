@@ -14,7 +14,7 @@ const Home = () => {
   const navigate=useNavigate()
 
   useEffect(() => {
-    let username=sessionStorage.getItem('username')
+    let username=localStorage.getItem('username')
     // console.log(username)
     if(username==='' || username===null){
       navigate('/login')
@@ -29,7 +29,7 @@ const Home = () => {
       
       <Typography sx={{ margin:"5%" }} variant="h3" align="center" className="font-setter">
       <Image src={require('./download.png')} fluid/><br/>
-        BLOGGER APP
+        BLOGGER WEBAPP
       </Typography>
       <Typewriterj/>
       {/* <div > */}

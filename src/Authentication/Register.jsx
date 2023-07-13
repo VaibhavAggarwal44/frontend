@@ -4,6 +4,8 @@ import { ToastContainer,toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 import "./styles.css"
 
+import Image from 'react-bootstrap/Image';
+
 
 const Register = () => {
 
@@ -12,7 +14,7 @@ const Register = () => {
     const [cpassword,setCpassword]=useState('')
 
     useEffect(()=>{
-        sessionStorage.clear();
+        localStorage.clear();
     },[]);
 
     const usenavigate = useNavigate();
@@ -40,7 +42,8 @@ const Register = () => {
             isproceed = false;
             errormessage = 'Please Confirm your Password,';
         }
-        else if(cpassword!==password){
+        if(cpassword!==password){
+            isproceed=false;
             errormessage="password mismatch"
         }
 
@@ -74,7 +77,7 @@ const Register = () => {
                 if(resp.username=='AaA' || resp.password=='AaA'){
                     toast.error("user already exists")
                 }else{
-                    sessionStorage.setItem('username',username)
+                    localStorage.setItem('username',username)
                     toast.success("Successfully registered")
                     usenavigate('/')
                 }
@@ -84,6 +87,7 @@ const Register = () => {
     return (
         <>
             <div className="offset-lg-3 col-lg-6" style={{ marginTop: '100px' }}>
+                <Image src={require('../download.png')} fluid/>
                 <form onSubmit={handlesubmit}>
                     <div className="card">
                         <div className="card-header">

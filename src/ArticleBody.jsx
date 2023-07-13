@@ -1,9 +1,9 @@
 import React from 'react'
-import { useEffect } from 'react'
+import { useEffect,useRef } from 'react'
 import { useState } from 'react'
 import Navbar from './NavBar/Navbar'
 import {useNavigate} from "react-router-dom"
-import {FaThumbsUp,FaThumbsDown} from 'react-icons/fa'
+import {FaThumbsUp,FaThumbsDown, FaComment} from 'react-icons/fa'
 import {FiEdit} from 'react-icons/fi'
 import { IconContext } from "react-icons/lib";
 import './App.css'
@@ -17,14 +17,14 @@ function ArticleBody() {
     const [likes,setLikes]=useState(0)
 
     const [dislikes,setDisLikes]=useState(0)
-    let username=sessionStorage.getItem('username')
+    let username=localStorage.getItem('username')
     
     const [article,setArticle]=useState({})
 
     const navigate=useNavigate()
 
     useEffect(() => {
-      let username=sessionStorage.getItem('username')
+      let username=localStorage.getItem('username')
       // console.log(username)
       if(username==='' || username===null){
         navigate('/login')
@@ -35,6 +35,7 @@ function ArticleBody() {
    }, []);
 
    useEffect(()=>{},[likeColor,dislikeColor])
+
 
    const func2= ()=>{
     let articleId=localStorage.getItem('articleId')
@@ -115,8 +116,12 @@ function ArticleBody() {
     <>
     <Navbar1/>
         <div className="container">
+          
+          <h1>{article.heading}</h1>
+          
+          <div dangerouslySetInnerHTML={{__html: article.displayBody}}></div>
           <div className='headers-article py-3'>
-            <h6>Created By: {article.createdBy}</h6>
+            <h6>Created By: <a className="pe-auto user-2-link" onClick={()=>{localStorage.setItem('user2',article.createdBy); navigate('/view/user2Articles');}}>{article.createdBy}</a></h6>
             
             <h6>VIEWS: {article.views}</h6>
 
@@ -140,17 +145,12 @@ function ArticleBody() {
                       <FiEdit/>
                   </IconContext.Provider>
               </button>}
+            </div>
           </div>
-          </div>
-          <h1>{article.heading}</h1>
-          
-          <div dangerouslySetInnerHTML={{__html: article.displayBody}}></div>
         </div> 
         <div className='container'>
         <Comment/>
         </div>
-        
-
     </>
   )
 }

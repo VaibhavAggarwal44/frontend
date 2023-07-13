@@ -79,6 +79,10 @@ li{
   font-family: 'proxima_nova_rgregular';
 }
 
+.user-2-link:hover{
+  cursor: pointer !important;
+}
+
 /* .bg-setter{
   background-image: url('background-image.jpeg');
 } */

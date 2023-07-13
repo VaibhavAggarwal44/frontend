@@ -21,7 +21,7 @@ const SearchBar = () => {
   const navigate=useNavigate()
 
   useEffect(() => {
-    let username=sessionStorage.getItem('username')
+    let username=localStorage.getItem('username')
     // console.log(username)
     if(username==='' || username===null){
       navigate('/login')
@@ -31,11 +31,12 @@ const SearchBar = () => {
 
   const handleChange2= (e)=>{
     e.preventDefault();
+    setUsers([])
     handleChange()
   }
 
   const articleView=(id)=>{
-    sessionStorage.setItem('articleId',id)
+    localStorage.setItem('articleId',id)
     // navigate('/view/article')
   }
 
@@ -93,6 +94,7 @@ const SearchBar = () => {
       <div className="container w-75">
       {(users.length>0 && (
           users.map((article,i)=>(
+            article.isPublic &&
             <div class="card my-4">
               <div class="card-header">
                 <h4>{article.heading}</h4>

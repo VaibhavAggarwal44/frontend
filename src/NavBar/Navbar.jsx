@@ -22,7 +22,7 @@ function Navbar1() {
   }
 
     const redirectLogin=()=>{
-        sessionStorage.clear()
+        localStorage.clear()
         navigate('/login')
     }
 
@@ -52,7 +52,7 @@ function Navbar1() {
           <Nav.Link onClick={redirectSearch}><strong>Search</strong></Nav.Link>
 
           <Nav.Link onClick={redirectViewAll}>View All Articles</Nav.Link>
-          <NavDropdown title={sessionStorage.getItem('username')} id="basic-nav-dropdown">
+          <NavDropdown title={localStorage.getItem('username')} id="basic-nav-dropdown">
             <NavDropdown.Item onClick={redirectInsert}>INSERT</NavDropdown.Item>
             <NavDropdown.Item onClick={redirectUserArticles}>
               User Articles

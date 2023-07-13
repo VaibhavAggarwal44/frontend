@@ -28,7 +28,7 @@ function Form() {
   // const navigate=useNavigate()
 
   useEffect(() => {
-    let username=sessionStorage.getItem('username')
+    let username=localStorage.getItem('username')
     // console.log(username)
     if(username==='' || username===null){
       navigate('/login')
@@ -60,7 +60,7 @@ function Form() {
   const handleSubmit=(e)=>{
     e.preventDefault();
 
-    if(heading.length>0 && content.length>0){
+    if(heading.length>0 && content.length>0 && removeTags(content).length>0){
       fetch('http://localhost:8081/apis/insert',{
         method:'POST',
         headers: {
@@ -70,21 +70,22 @@ function Form() {
         body:JSON.stringify({
           articleBody:removeTags(content),
           heading:heading,
-          createdBy:sessionStorage.getItem('username'),
+          createdBy:localStorage.getItem('username'),
           displayBody:content,
           isPublic:checked
         })
       })
-      .then((response)=>{console.log(response)
+      .then((response)=>{
+        console.log(response)
         if(response.status==200){
           flag=true;
           toast.success("article inserted successfully")
-          setTimeout(()=>{navigate('/')},1000)
+          setTimeout(()=>{navigate('/view/userArticles')},2000)
           
         }else{
           toast.error("some error occured")
 
-          setTimeout(()=>{navigate('/')},1000)
+          setTimeout(()=>{navigate('/view/userArticles')},1000)
         }
       })
       .catch((err)=>{console.log(err)});

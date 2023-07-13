@@ -22,7 +22,7 @@ function EditArticle() {
   // const navigate=useNavigate()
 
   useEffect(() => {
-    let username=sessionStorage.getItem('username')
+    let username=localStorage.getItem('username')
     let articleId=localStorage.getItem('articleId')
 
     if(articleId==null || articleId==''){
@@ -91,7 +91,7 @@ function EditArticle() {
           dislikedby:article.dislikedBy,
           articleBody:removeTags(content),
           heading:heading,
-          createdBy:sessionStorage.getItem('username'),
+          createdBy:localStorage.getItem('username'),
           displayBody:content,
           isPublic:checked
         })
