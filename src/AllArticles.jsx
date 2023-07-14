@@ -3,6 +3,9 @@ import "./AllArticles.css"
 import { Link,useNavigate } from "react-router-dom";
 import ArticleListItem from "./ArticleListItem";
 import 'bootstrap/dist/css/bootstrap.min.css'
+import {FaThumbsUp,FaThumbsDown, FaComment, FaEyeSlash} from 'react-icons/fa'
+import {FiEdit} from 'react-icons/fi'
+import { IconContext } from "react-icons/lib";
 import Navbar from "./NavBar/Navbar";
 import Navbar1 from "./NavBar/Navbar";
 import Button from 'react-bootstrap/Button';
@@ -16,13 +19,14 @@ const AllArticles = () => {
   const [articles, setArticles] = useState([]);
   let var1=false;
   let var2=false;
+  let username=localStorage.getItem('username')
 
   useEffect(() => {
     let username=localStorage.getItem('username')
     if(username==='' || username===null){
       navigate('/login')
     }else{
-      handleChange("articles/sortView")
+      handleChange("articles/sortView/"+username)
     }
 
  }, []);
@@ -65,13 +69,10 @@ const AllArticles = () => {
         e.preventDefault();
         if(var1){
             console.log("like")
-            handleChange("articles/sortLike")
+            handleChange("articles/sortLike/"+username)
         }else if(var2){
             console.log("view")
-            handleChange("articles/sortView")
-        }else{
-            console.log("all articles")
-            handleChange("articles")
+            handleChange("articles/sortView/"+username)
         }
     }   
 
@@ -119,56 +120,21 @@ const AllArticles = () => {
       <div className="container checker2">
         <a className="style-button btn btn-primary  my-2 justify-content-center" onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Sort by likes</a>
         <a className="style-button btn btn-primary mx-3 my-2 justify-content-center" onClick={(e)=>{var1=false; var2=true; handleChange2(e);}}>Sort by views</a>
-        {records.length>0 &&     
-        // (<table id="customers">
-        // <thead>
-        //     <tr>
-        //         {/* <th>ID</th> */}
-        //         <th>Heading</th>
-        //         <th>Article Body</th>
-        //         <th>Created By</th>
-        //         <th><a onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Likes</a></th>
-        //         <th>Views</th>
-        //     </tr>
-        //     </thead>
-            
-        // {records.length > 0 && (
-        //     <tbody>
-        //     {
-        //     records.map(article => (
-        //         // <Link to="/view/article">
-                
-        //         <tr key={article.id} className="table-row" onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}}>
-        //           <td>{article.heading}</td>
-        //           <td>{article.articleBody?article.articleBody.substring(0,70)+".....":""}</td>
-        //           <td>{article.createdBy}</td>
-        //           <td>{article.likes}</td>
-        //           <td>{article.views}</td>
-        //         </tr>
-        //         // </Link>
-        //     ))}
-        //     </tbody>
-            
-        // )}
-        
-        // </table>)
+        {
 
         (records.length>0 && (
           records.map((article,i)=>(
-            // <div class="card my-4">
-            //   <div class="card-header">
-            //     <h4>{article.heading}</h4>
-            //   </div>
-            //   <div class="card-body">
-            //     <h6>LIKES: {article.likes}&nbsp;&nbsp; VIEWS:{article.views}&nbsp;&nbsp; POSTED BY:{article.createdBy}</h6>
-            //     <p class="card-text">{article.articleBody?article.articleBody.substring(0,70)+"...":""}</p>
-            //     <a onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}} class="btn btn-primary table-row">View Post</a>
-            //   </div>
-            // </div>
             <Card className="my-3" key={i}>
             <Card.Header><h3>{article.heading}</h3></Card.Header>
             <Card.Body>
-              <Card.Title>LIKES: {article.likes}&nbsp;&nbsp; VIEWS:{article.views}&nbsp;&nbsp; POSTED BY:{article.createdBy}</Card.Title>
+              <Card.Title>LIKES: {article.likes}&nbsp;&nbsp; VIEWS:{article.views}&nbsp;&nbsp; POSTED BY:{article.createdBy} &nbsp; {(article.isPublic==false && article.createdBy==localStorage.getItem('username')) &&
+              // <button className='button-border-set'>
+                <IconContext.Provider value={{ color: "",size:20 }}>
+                      <FaEyeSlash/>
+                  </IconContext.Provider>
+              
+              }</Card.Title>
+              
               <Card.Text>
               {article.articleBody?article.articleBody.substring(0,250)+"...":""}
               </Card.Text>

@@ -3,7 +3,7 @@ import { useEffect,useRef } from 'react'
 import { useState } from 'react'
 import Navbar from './NavBar/Navbar'
 import {useNavigate} from "react-router-dom"
-import {FaThumbsUp,FaThumbsDown, FaComment} from 'react-icons/fa'
+import {FaThumbsUp,FaThumbsDown, FaComment, FaEyeSlash} from 'react-icons/fa'
 import {FiEdit} from 'react-icons/fi'
 import { IconContext } from "react-icons/lib";
 import './App.css'
@@ -145,6 +145,13 @@ function ArticleBody() {
                       <FiEdit/>
                   </IconContext.Provider>
               </button>}
+              {article.isPublic==false &&
+              <button className='button-border-set'>
+                <IconContext.Provider value={{ color: "",size:30 }}>
+                      <FaEyeSlash/>
+                  </IconContext.Provider>
+              </button>
+              }
             </div>
           </div>
         </div> 
