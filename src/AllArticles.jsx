@@ -18,6 +18,7 @@ const AllArticles = () => {
   const [articles, setArticles] = useState([]);
   let var1=false;
   let var2=false;
+  const [flag,setflag]=useState(true);
   let username=localStorage.getItem('username')
 
   useEffect(() => {
@@ -117,10 +118,12 @@ const AllArticles = () => {
 
     var str=searchtext.trim()
     if(str===''){
+      setflag(true)
       handleChange('articles/sortLike/'+username);
       return;
     }
 
+    setflag(false)
     var query=str.replace(' ', "--")
     const dat=await fetch(`http://localhost:8081/apis/search/${query}/${username}`)
       .then(response => {
@@ -159,10 +162,12 @@ const AllArticles = () => {
           </form>
           
         </div>
-      <div className="container checker2">
+      <div className="container checker2">{flag &&
+      <div>
         <a className="style-button btn btn-primary  my-2 justify-content-center" onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Sort by likes</a>
         <a className="style-button btn btn-primary mx-3 my-2 justify-content-center" onClick={(e)=>{var1=false; var2=true; handleChange2(e);}}>Sort by views</a>
-        {
+      </div>}
+      {
 
         (records.length>0 && (
           records.map((article,i)=>(
