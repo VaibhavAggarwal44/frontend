@@ -7,6 +7,7 @@ import Navbar1 from "../NavBar/Navbar";
 const SearchBar = () => {
   const url="http://localhost:3000/view/article"
   const [users, setUsers] = useState([])
+  let username=localStorage.getItem('username')
   
   const [message, setMessage] = useState('');
 
@@ -47,16 +48,10 @@ const SearchBar = () => {
     if(str===''){
       return;
     }
-    let username = 'vibhu';
-    let password = 'vibhu';
-    // let base64 = require('base-64');
-    let strm=btoa(username+":"+password)
-    console.log(strm)
-    let headers = new Headers();
-    headers.append('Authorization', 'Basic' + 'dmliaHU6dmliaHU=');
+    let username=localStorage.getItem('username')
 
     var query=str.replace(' ', "--")
-    const dat=await fetch(`http://localhost:8081/apis/search/${query}`)
+    const dat=await fetch(`http://localhost:8081/apis/search/${query}/${username}`)
       .then(response => {
         // console.log(response.json());
         return response.json();
@@ -94,7 +89,7 @@ const SearchBar = () => {
       <div className="container w-75">
       {(users.length>0 && (
           users.map((article,i)=>(
-            article.isPublic &&
+            (article.isPublic || article.createdBy===username) &&
             <div class="card my-4">
               <div class="card-header">
                 <h4>{article.heading}</h4>

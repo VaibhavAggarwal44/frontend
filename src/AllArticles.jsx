@@ -10,12 +10,11 @@ import Navbar from "./NavBar/Navbar";
 import Navbar1 from "./NavBar/Navbar";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-// import CardGrid from "./Card/CardGrid";
-// import Card from "./Card/Card";
-// import "./Card/style.css"
 
 const AllArticles = () => {
 
+
+  const [searchtext,setSearchtext]=useState('');
   const [articles, setArticles] = useState([]);
   let var1=false;
   let var2=false;
@@ -112,11 +111,54 @@ const AllArticles = () => {
 
   };
 
+  const handleSearchChange=async (e)=>{
+    e.preventDefault();
+    setArticles([])
+
+    var str=searchtext.trim()
+    if(str===''){
+      handleChange('articles/sortLike/'+username);
+      return;
+    }
+
+    var query=str.replace(' ', "--")
+    const dat=await fetch(`http://localhost:8081/apis/search/${query}/${username}`)
+      .then(response => {
+        // console.log(response.json());
+        return response.json();
+      })
+      .then(data => {
+        setArticles(data);
+        // console.log(data);
+      })
+
+  }
+
   return (
     <div>
       <Navbar1/>
 
       <div className="justify-content-center">
+        <div className="container w-50">
+          <form >
+          <div class="input-group input-group-lg">
+          <input
+            type="text"
+            id="message"
+            name="message"
+            onChange={(e)=>{setSearchtext(e.target.value)}}
+            value={searchtext}
+            className="form-control h-50 border border-primary my-3" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+          />
+          </div>
+          {/* <h2>Query: {message}</h2> */}
+
+          <button 
+          onClick={(e)=>{handleSearchChange(e)}} 
+          className="button-checker2 h-75">Search</button>
+          </form>
+          
+        </div>
       <div className="container checker2">
         <a className="style-button btn btn-primary  my-2 justify-content-center" onClick={(e)=>{var1=true; var2=false; handleChange2(e);}}>Sort by likes</a>
         <a className="style-button btn btn-primary mx-3 my-2 justify-content-center" onClick={(e)=>{var1=false; var2=true; handleChange2(e);}}>Sort by views</a>
@@ -127,20 +169,23 @@ const AllArticles = () => {
             <Card className="my-3" key={i}>
             <Card.Header><h3>{article.heading}</h3></Card.Header>
             <Card.Body>
-              <Card.Title>LIKES: {article.likes}&nbsp;&nbsp; VIEWS:{article.views}&nbsp;&nbsp; POSTED BY:{article.createdBy} &nbsp; {(article.isPublic==false && article.createdBy==localStorage.getItem('username')) &&
-              // <button className='button-border-set'>
-                <IconContext.Provider value={{ color: "",size:20 }}>
-                      <FaEyeSlash/>
-                  </IconContext.Provider>
               
-              }</Card.Title>
               
               <Card.Text>
               {article.articleBody?article.articleBody.substring(0,250)+"...":""}
               </Card.Text>
               {/* <Button variant="primary" onClick={()=>{localStorage.setItem('articleid',article.id); navigate('/view/article');}}>View Post</Button> */}
-              <a onClick={()=>{localStorage.setItem('articleId',article.id); navigate('/view/article');}} className="btn btn-primary table-row">View Post</a>
-
+              <div className="d-flex">
+              <a onClick={()=>{localStorage.setItem('articleId',article.id); navigate('/view/article');}} className="btn btn-primary table-row mx-2">View Post</a>
+              <Card.Text className="my-2">LIKES: {article.likes}&nbsp;&nbsp; VIEWS:{article.views}&nbsp;&nbsp; POSTED BY:{article.createdBy} &nbsp; {(article.isPublic==false && article.createdBy==localStorage.getItem('username')) &&
+              // <button className='button-border-set'>
+                <IconContext.Provider value={{ color: "",size:20 }}>
+                      <FaEyeSlash/>
+                  </IconContext.Provider>
+              
+              }
+              </Card.Text>
+              </div>
             </Card.Body>
           </Card>
 

@@ -50,7 +50,7 @@ function UserArticles() {
                 </div>
                 <div class="card-body">
                     <h6>LIKES: {article.likes}&nbsp;&nbsp;   VIEWS:{article.views}</h6>
-                    <p class="card-text">{article.articleBody?article.articleBody.substring(0,70)+"...":""}</p>
+                    <p class="card-text">{article.articleBody?article.articleBody.substring(0,300)+"...":""}</p>
                     <a onClick={()=>{localStorage.setItem('articleId',article.id); navigate('/view/article');}} class="btn btn-primary table-row">View Post</a>
                 </div>
                 </div>
