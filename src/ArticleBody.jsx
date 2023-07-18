@@ -8,6 +8,7 @@ import {
   FaThumbsDown,
   FaComment,
   FaEyeSlash,
+  FaRegTrashAlt,
 } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { IconContext } from "react-icons/lib";
@@ -30,9 +31,11 @@ function ArticleBody() {
 
   useEffect(() => {
     let username = localStorage.getItem("username");
+    let articleId=localStorage.getItem('articleId');
     if (username === "" || username === null) {
       navigate("/login");
-    } else {
+    }
+    else {
       func2();
     }
   }, []);
@@ -109,6 +112,7 @@ function ArticleBody() {
     e.preventDefault();
     navigate("/edit");
   };
+
 
   return (
     <>

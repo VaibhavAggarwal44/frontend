@@ -3,6 +3,8 @@ import "./SearchPage.css";
 import Navbar from "../NavBar/Navbar";
 import { useNavigate } from "react-router-dom";
 import Navbar1 from "../NavBar/Navbar";
+import { IconContext } from "react-icons/lib";
+import { FaSearch } from "react-icons/fa";
 
 const SearchBar = () => {
   const url = "http://localhost:3000/view/article";
@@ -75,17 +77,20 @@ const SearchBar = () => {
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
             />
+            <button
+              onClick={(e) => {
+                handleChange2(e);
+              }}
+              className="button-checker2 h-125"
+            >
+              <IconContext.Provider value={{ color: 'white', size: 20, fontWeight:100 }}>
+                <FaSearch/>
+              </IconContext.Provider>
+            </button>
           </div>
           <h2>Query: {message}</h2>
 
-          <button
-            onClick={(e) => {
-              handleChange2(e);
-            }}
-            className="button-checker2 h-75"
-          >
-            Search
-          </button>
+          
         </form>
       </div>
 

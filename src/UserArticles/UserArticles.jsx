@@ -6,6 +6,14 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
 import { Typography } from "@mui/material";
 import Navbar1 from "../NavBar/Navbar";
+import {
+  FaThumbsUp,
+  FaThumbsDown,
+  FaComment,
+  FaEyeSlash,
+} from "react-icons/fa";
+import { FiEdit } from "react-icons/fi";
+import { IconContext } from "react-icons/lib";
 
 function UserArticles() {
   const [articles, setArticles] = useState([]);
@@ -45,14 +53,21 @@ function UserArticles() {
                   <h4>{article.heading}</h4>
                 </div>
                 <div class="card-body">
-                  <h6>
-                    LIKES: {article.likes}&nbsp;&nbsp; VIEWS:{article.views}
-                  </h6>
                   <p class="card-text">
                     {article.articleBody
                       ? article.articleBody.substring(0, 300) + "..."
                       : ""}
                   </p>
+                  <h6>
+                    LIKES: {article.likes}&nbsp;&nbsp; VIEWS:{article.views}&nbsp;&nbsp;
+                    {article.isPublic == false &&
+                        article.createdBy ==
+                          localStorage.getItem("username") && (
+                          <IconContext.Provider value={{ color: "", size: 20 }}>
+                            <FaEyeSlash />
+                          </IconContext.Provider>
+                    )}
+                  </h6>
                   <a
                     onClick={() => {
                       localStorage.setItem("articleId", article.id);

@@ -32,6 +32,14 @@ const Register = () => {
       isproceed = false;
       toast.warning("enter valid username");
     }
+    if(username.length<4){
+      isproceed=false;
+      toast.warning("username too short")
+    }
+    if(username.length>16){
+      isproceed=false
+      toast.warning("username too long")
+    }
     if (password === null || password === "") {
       isproceed = false;
       errormessage += " Password,";
@@ -39,6 +47,14 @@ const Register = () => {
     if (hasWhiteSpace(password)) {
       isproceed = false;
       toast.warning("enter password without space");
+    }
+    if(password.length<4){
+      isproceed=false;
+      toast.warning("password too short")
+    }
+    if(password.length>15){
+      isproceed=false;
+      toast.warning("password too long")
     }
     if (cpassword === null || cpassword === "") {
       isproceed = false;
@@ -91,7 +107,7 @@ const Register = () => {
         <form onSubmit={handlesubmit}>
           <div className="card">
             <div className="card-header">
-              <h2>User Registeration</h2>
+              <h2>User Registration</h2>
             </div>
             <div className="card-body">
               <div className="row">
